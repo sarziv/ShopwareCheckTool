@@ -1,0 +1,314 @@
+[
+  {
+    "id": "1",
+    "configuration_id": "1",
+    "sw_unit_id": "e9a79ede2a9e4bb8bf06a08a6bf1579c",
+    "unit_id": "1"
+  },
+  {
+    "id": "2",
+    "configuration_id": "1",
+    "sw_unit_id": "b7e7a67065944b78970ce9456bb74ceb",
+    "unit_id": "2"
+  },
+  {
+    "id": "3",
+    "configuration_id": "1",
+    "sw_unit_id": "58471a458b724e0cb48db7e4d3604f70",
+    "unit_id": "3"
+  },
+  {
+    "id": "4",
+    "configuration_id": "1",
+    "sw_unit_id": "2975a49a691c4770a43f24c71acf8f4b",
+    "unit_id": "4"
+  },
+  {
+    "id": "5",
+    "configuration_id": "1",
+    "sw_unit_id": "9d42ecd319f34fde915f4fa8cdbe55f2",
+    "unit_id": "5"
+  },
+  {
+    "id": "6",
+    "configuration_id": "1",
+    "sw_unit_id": "3ce6db2872b94b6384249f1c11209e2b",
+    "unit_id": "6"
+  },
+  {
+    "id": "7",
+    "configuration_id": "1",
+    "sw_unit_id": "055fa46ca79c4ef887c1bc8d4de3f677",
+    "unit_id": "7"
+  },
+  {
+    "id": "8",
+    "configuration_id": "1",
+    "sw_unit_id": "4cfc001d41d6448ea07b16abd520f5b7",
+    "unit_id": "8"
+  },
+  {
+    "id": "9",
+    "configuration_id": "1",
+    "sw_unit_id": "03970ef5720e42269e85131454b2c30e",
+    "unit_id": "9"
+  },
+  {
+    "id": "10",
+    "configuration_id": "1",
+    "sw_unit_id": "6cd8bc0a2757489e884ce16e89f11afe",
+    "unit_id": "10"
+  },
+  {
+    "id": "11",
+    "configuration_id": "1",
+    "sw_unit_id": "99c2d5bb3d9a4c4a8522cf3ab8e8599e",
+    "unit_id": "11"
+  },
+  {
+    "id": "12",
+    "configuration_id": "1",
+    "sw_unit_id": "3899745862954f6281803d361a3d5c86",
+    "unit_id": "12"
+  },
+  {
+    "id": "13",
+    "configuration_id": "1",
+    "sw_unit_id": "6071bbd6ca3f4367937f2cad96a71f31",
+    "unit_id": "13"
+  },
+  {
+    "id": "14",
+    "configuration_id": "1",
+    "sw_unit_id": "84601cee1e2242749795d639ee08f804",
+    "unit_id": "14"
+  },
+  {
+    "id": "15",
+    "configuration_id": "1",
+    "sw_unit_id": "bdce1a795ceb4d5e9c9a963dd9440395",
+    "unit_id": "15"
+  },
+  {
+    "id": "16",
+    "configuration_id": "1",
+    "sw_unit_id": "4a253b5e43384bfeaa2269d58f7ff016",
+    "unit_id": "16"
+  },
+  {
+    "id": "17",
+    "configuration_id": "1",
+    "sw_unit_id": "196b0eaf88f74435afeab72853999c18",
+    "unit_id": "17"
+  },
+  {
+    "id": "18",
+    "configuration_id": "1",
+    "sw_unit_id": "06a9da2adaf641d6af2e8195ec70c620",
+    "unit_id": "18"
+  },
+  {
+    "id": "19",
+    "configuration_id": "1",
+    "sw_unit_id": "63ef74208bb64b61b7bac2f5b7c08f61",
+    "unit_id": "19"
+  },
+  {
+    "id": "20",
+    "configuration_id": "1",
+    "sw_unit_id": "fdf6e79acc9a42bb8413d4f92c4c953b",
+    "unit_id": "20"
+  },
+  {
+    "id": "21",
+    "configuration_id": "1",
+    "sw_unit_id": "b4548aeb60604671af94a81f71e26633",
+    "unit_id": "21"
+  },
+  {
+    "id": "22",
+    "configuration_id": "1",
+    "sw_unit_id": "db39ef9583024b36b19adc5e4c4a1307",
+    "unit_id": "22"
+  },
+  {
+    "id": "23",
+    "configuration_id": "1",
+    "sw_unit_id": "e875b3c9bcf1438683206125e58b27c4",
+    "unit_id": "23"
+  },
+  {
+    "id": "24",
+    "configuration_id": "1",
+    "sw_unit_id": "43ddad1858da4a9eaa3ebb76e591c450",
+    "unit_id": "24"
+  },
+  {
+    "id": "25",
+    "configuration_id": "1",
+    "sw_unit_id": "1a4b1ce23e3b451c86953a3ff71343b2",
+    "unit_id": "25"
+  },
+  {
+    "id": "26",
+    "configuration_id": "1",
+    "sw_unit_id": "408f455976d742908d0024ef3cf7d854",
+    "unit_id": "26"
+  },
+  {
+    "id": "27",
+    "configuration_id": "1",
+    "sw_unit_id": "7423e108f9b344fea36505a1ca8826c1",
+    "unit_id": "27"
+  },
+  {
+    "id": "28",
+    "configuration_id": "1",
+    "sw_unit_id": "ebfc59c1f3844b47b9850710acd4075e",
+    "unit_id": "28"
+  },
+  {
+    "id": "29",
+    "configuration_id": "1",
+    "sw_unit_id": "192d353e3bda49c28d9c380179a4749e",
+    "unit_id": "29"
+  },
+  {
+    "id": "30",
+    "configuration_id": "1",
+    "sw_unit_id": "17f3ef121cd64e4b912f3d553378f7d6",
+    "unit_id": "30"
+  },
+  {
+    "id": "31",
+    "configuration_id": "1",
+    "sw_unit_id": "6e20ae766c3846cdbfcf8d416b6e16c4",
+    "unit_id": "31"
+  },
+  {
+    "id": "32",
+    "configuration_id": "1",
+    "sw_unit_id": "bf5f4e273ab64e11a69ddd5316ae7d3e",
+    "unit_id": "32"
+  },
+  {
+    "id": "33",
+    "configuration_id": "1",
+    "sw_unit_id": "707bb6556a99447fa80e7bb4aed605b2",
+    "unit_id": "33"
+  },
+  {
+    "id": "34",
+    "configuration_id": "1",
+    "sw_unit_id": "8f3c4e9375974444bc8f7729139ef27f",
+    "unit_id": "34"
+  },
+  {
+    "id": "35",
+    "configuration_id": "1",
+    "sw_unit_id": "58387a90b89f4ede9573598392ac17a9",
+    "unit_id": "35"
+  },
+  {
+    "id": "36",
+    "configuration_id": "1",
+    "sw_unit_id": "ae557c22f41647509647cc6a84089f12",
+    "unit_id": "36"
+  },
+  {
+    "id": "37",
+    "configuration_id": "1",
+    "sw_unit_id": "e1f81a93f3da42cbb33e1cced1abb46c",
+    "unit_id": "37"
+  },
+  {
+    "id": "38",
+    "configuration_id": "1",
+    "sw_unit_id": "49472c1c0d1e45d6aec7c24c045549df",
+    "unit_id": "38"
+  },
+  {
+    "id": "39",
+    "configuration_id": "1",
+    "sw_unit_id": "19f788fac5bc499b9bf736a7eaca9092",
+    "unit_id": "39"
+  },
+  {
+    "id": "40",
+    "configuration_id": "1",
+    "sw_unit_id": "93f5435da188473da0565cea9dda2ce3",
+    "unit_id": "40"
+  },
+  {
+    "id": "41",
+    "configuration_id": "1",
+    "sw_unit_id": "46ac12315ac34226a4769d7a10d5b111",
+    "unit_id": "41"
+  },
+  {
+    "id": "42",
+    "configuration_id": "1",
+    "sw_unit_id": "ca48dfb660d34849b5f893b315d2f49d",
+    "unit_id": "42"
+  },
+  {
+    "id": "43",
+    "configuration_id": "1",
+    "sw_unit_id": "221091326603442680fcdc1728cc2d43",
+    "unit_id": "43"
+  },
+  {
+    "id": "44",
+    "configuration_id": "1",
+    "sw_unit_id": "06b2e5624e1c40d097f954c3f71e87ae",
+    "unit_id": "44"
+  },
+  {
+    "id": "45",
+    "configuration_id": "1",
+    "sw_unit_id": "07cb24f61e6e4a69a7eeea3d0f50c1db",
+    "unit_id": "45"
+  },
+  {
+    "id": "46",
+    "configuration_id": "1",
+    "sw_unit_id": "a6a0ea0beb234ae6b82d5f999739403e",
+    "unit_id": "46"
+  },
+  {
+    "id": "47",
+    "configuration_id": "1",
+    "sw_unit_id": "c680592c09be4e93b80b9e0985be07e5",
+    "unit_id": "47"
+  },
+  {
+    "id": "48",
+    "configuration_id": "1",
+    "sw_unit_id": "e9aeaf067f2545caa44c4bc397d396b4",
+    "unit_id": "48"
+  },
+  {
+    "id": "49",
+    "configuration_id": "1",
+    "sw_unit_id": "8cb99d900e7c4f07a8e0f0ec9b548fc0",
+    "unit_id": "49"
+  },
+  {
+    "id": "50",
+    "configuration_id": "1",
+    "sw_unit_id": "6789182cff2443228267b09b761dda05",
+    "unit_id": "50"
+  },
+  {
+    "id": "51",
+    "configuration_id": "1",
+    "sw_unit_id": "0ca0d3be924544f18674f2cb2b42f346",
+    "unit_id": "51"
+  },
+  {
+    "id": "52",
+    "configuration_id": "1",
+    "sw_unit_id": "0629a4aefe004dccb79adae0c4d0f1eb",
+    "unit_id": "52"
+  }
+]

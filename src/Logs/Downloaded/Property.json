@@ -1,0 +1,227 @@
+[
+  {
+    "id": "1",
+    "configuration_id": "1",
+    "sw_property_id": "c9fe72a8d7df4807aeb1477ddad5881f",
+    "sw_property_options": {
+      "102": "d16ce592c5c04402af42a95b8e3da34b",
+      "103": "ef84adfc6c254988b926239dfe140b52",
+      "104": "623219eddb8141238437c2c14335192a",
+      "105": "9346253e1711468ea2ca572c9821f10b",
+      "106": "941931033a6a419e9cb660de60079c9a",
+      "107": "d3061adab2e24e95833174e5f6e1ac21",
+      "108": "ee5a37eb423f4610a7a6caf20104e59a",
+      "109": "3f71692bc58d4fd0baf5db860981eb29",
+      "110": "73fa422752e84cda80441642c8719765"
+    },
+    "property_id": "3"
+  },
+  {
+    "id": "2",
+    "configuration_id": "1",
+    "sw_property_id": "92fdde0dd3df46f798a3630675bc305c",
+    "sw_property_options": {
+      "16": "9f9a63690cce4acca9a6ab68ef299b09",
+      "17": "e5f3002395dc4b9eb7e2852f3bd4215c",
+      "18": "8b187bde8779461b92e29315e3f74123",
+      "19": "8007c0ac25dc48f48a9c03f17c7b6d92",
+      "20": "baee1670829f40d698348b9bc4a55f4f",
+      "21": "a8cfa6164fb84a0591965a22fafed689",
+      "22": "b4fa5447cc8e4a1cae4bc0f345748ec9",
+      "23": "4e640f99087945d9b54d33c97486bbfa",
+      "24": "56a66628430b433785fdc6c328c53981",
+      "25": "188617971b5a44ec822735f84ebff817",
+      "26": "f76fc35ba9284b5ab6352f895eedba44",
+      "27": "edfaa4d5c1064f1fb942d3bd8a524647",
+      "195": "4ecebb11c38245308b00373a6c2208c3"
+    },
+    "property_id": "4"
+  },
+  {
+    "id": "3",
+    "configuration_id": "1",
+    "sw_property_id": "d6cb7160d5e44d99a2d8335c5fec1f22",
+    "sw_property_options": {
+      "98": "01b4d104826945b8bc8f731829b190f8",
+      "99": "19a0446224dc44c8bc25821708994c7e",
+      "100": "46afbc035285474087b1679cd860c86d",
+      "101": "4127d9510a5945b4842db5d64d3b9cfe"
+    },
+    "property_id": "5"
+  },
+  {
+    "id": "4",
+    "configuration_id": "1",
+    "sw_property_id": "5fa3ce0af37d4de3a99b821bb11c714d",
+    "sw_property_options": {
+      "28": "1939c8c338df48b59dc8899b39bc7767",
+      "29": "0031e48e66ea4abf86e8c8b844d8ca54",
+      "30": "9d59973236ba478a9941d82f83116f4f",
+      "31": "75d7de37d83841cc89835b84cdcd5c8b",
+      "32": "ccaefd5377cf436aa1771ddbeec159d2",
+      "33": "3356042a7f7149b6a79470bca856d88c",
+      "34": "0072b659461046d1a379fcbfca121f3d",
+      "35": "da01b838b086455bb83d1a27c7b55c15",
+      "36": "f4c8ef9a795b4bc3ba29cef7984cdbe4",
+      "37": "fe0a39353e334323b0c6ae702a6febde"
+    },
+    "property_id": "6"
+  },
+  {
+    "id": "5",
+    "configuration_id": "1",
+    "sw_property_id": "d8480d5f9ea346f3929a769e8815564c",
+    "sw_property_options": {
+      "43": "80d6d2e1c4834624a77544efb91c4fa5",
+      "44": "0948be76ba6f45e79399ad7ed7c9aad5",
+      "45": "2b15f6a224fb42ebb8e2ef9f27ead24f",
+      "46": "97f0ac2f047948db825a1d83ea07675a",
+      "47": "ac6942b78229483d946e7ebd608a105c",
+      "48": "fdec9bc1de24497fbdb2106fe9d13801",
+      "49": "f0a6e3a979c94e90a395e27b4a153f17",
+      "50": "a2f3b42fa16e4e639cc928c705561961",
+      "51": "6909d8b7f9694b2d96a2a3f486dca701",
+      "52": "6a5cc3f74f9447648080f932ba3e6a8a",
+      "53": "4204eae27f5d4c49bea9ab10fe17e13e",
+      "54": "acb76d88ada3426ca0501f45df8ec70d",
+      "55": "9ff2211696954e28adbe1780ae35af48",
+      "56": "0ef74f565f58457ca9322fdb835693ca",
+      "57": "3c976dfb5ece48a7b609a0de29163cef",
+      "58": "d9ee2d07261f46af850095604b112cfc",
+      "59": "278d5dd329534426bd54be55d196dc59",
+      "123": "e5f03d03bbf14cc18891639692d2a8a5",
+      "124": "6921d264926d4993ac2638d30515b7d6",
+      "125": "3cffd2aef3034847863c5d000fa0554b",
+      "126": "1eb856e286d948009dfab410cfbff6e7"
+    },
+    "property_id": "15"
+  },
+  {
+    "id": "6",
+    "configuration_id": "1",
+    "sw_property_id": "6d14ab6236434f9196132c58462aed44",
+    "sw_property_options": {
+      "60": "03241f395da74472a9e7735ff0d9575f",
+      "61": "3dd46d1ec0354fe4bc09bc07230cc711",
+      "62": "99113582ee2c4ef58be80827768f6d38"
+    },
+    "property_id": "16"
+  },
+  {
+    "id": "7",
+    "configuration_id": "1",
+    "sw_property_id": "35c56b8705a5438fa04bc0085b24e053",
+    "sw_property_options": {
+      "68": "0aa07e24cdb24894b928e1ca85bb613b",
+      "69": "07e2add2980b45a083d95cb70065505a",
+      "70": "bc4c1f73a1734b2ca8a04e19c9105341",
+      "71": "8bc8096d0b6240ec949bbf760d48161a",
+      "72": "d1f0a32f1d8c41ff9feebe1ed677b3a7",
+      "73": "0c4f5f4b2f914f2fb2305d0fd0fe6b48",
+      "74": "b6413448439c48fca2a17313cc116db5",
+      "75": "f9646803b5384f00895ff8e613844d6a",
+      "76": "377bf762cb3040f0a526bdb1e15abf20",
+      "77": "9eb4daf8e8e54bb7b11623702b198188",
+      "78": "9622809e4c8742988a4d107dd0fca99a",
+      "79": "07228eebf13d41da88e62549244eb745",
+      "80": "ac806d290e044bd1a719d77c25c8ddae",
+      "81": "b16d756dd0e645febcc4204898470c8c",
+      "82": "9400b974805848c7badb455ee261e21b",
+      "83": "60af384b5f6d4fb08c786e7728b4eff6",
+      "84": "93cf98a2daf8404b9d612efb6ba94c5b",
+      "85": "bd9d37c9bd504c728f6cb4cb4a2bdfd4",
+      "86": "15841b99fbb74c67bbcb0f1751c1c4ba",
+      "87": "53b8e5b9038f4ad18aa62444ed2dcb89",
+      "88": "1c6903bc4436439fa5121859dfebeff5"
+    },
+    "property_id": "19"
+  },
+  {
+    "id": "8",
+    "configuration_id": "1",
+    "sw_property_id": "754def2fd06d4af4b033f386a5f5bf4c",
+    "sw_property_options": {
+      "111": "340bb55d4a4940e18ea079f6869d8629",
+      "112": "6c76ff3cb8fa4e0a8c8adf662cd8ebaa"
+    },
+    "property_id": "21"
+  },
+  {
+    "id": "9",
+    "configuration_id": "1",
+    "sw_property_id": "88d9198355474068968df107407d5aeb",
+    "sw_property_options": {
+      "113": "311e3e9be0e64ec18374b4a3000fb2b2",
+      "114": "06ebf3673fff445cb5e0e49fdc97c11b",
+      "115": "427904de1d71468dac13af8e705305bb",
+      "116": "b1902d70ee9b4ebb82c07ed008246891",
+      "117": "253faea148424ac183443badc42e5a98",
+      "130": "966e69b802db461d9481d181f7cb6191",
+      "196": "56ce0514018d4411abe41635d6eda5c5",
+      "198": "8ec5ab024608421ca7d8a15374ddfd97",
+      "201": "e620406ccbb9486e8c4e1b3a02293503",
+      "294": "8edccd18fc724ed18197a18d578e5a75",
+      "295": "51b5acfb80954b618e388fab21e83922"
+    },
+    "property_id": "22"
+  },
+  {
+    "id": "10",
+    "configuration_id": "1",
+    "sw_property_id": "e3ad4f9399be4f8f98711d1bb6629de9",
+    "sw_property_options": {
+      "118": "cfdc0fe74a26486eb487ac518d36fe9c",
+      "119": "df4c96ff681d4034ba8769b3c3895f9b",
+      "120": "f7a5fda5a34d4b1b93a2f0bfb28f75eb"
+    },
+    "property_id": "23"
+  },
+  {
+    "id": "11",
+    "configuration_id": "1",
+    "sw_property_id": "982d810fd520469ba604ad3f5315544d",
+    "sw_property_options": {
+      "129": "7cb1a35edc264835832752d25ac8c578",
+      "131": "2c8e2a2c11954d7eb5f03c77de3ff4d7",
+      "132": "6236131b22a447bc988273886253bedb",
+      "133": "d37c79d92d1844b4a7716166d3183a01",
+      "134": "36512646fa2a4141b40e4e5742d16d0c",
+      "135": "8a0b292115234443aeaa7dcc192de3fa",
+      "136": "6f4b27e7d9a04fb48f7827153a569c21",
+      "137": "d195844698514693be9d9195be8e6d9d",
+      "138": "407eaaf2e86f4b7087ac55c2f837b77e",
+      "139": "de4d2d87ddd8401d9b85d90269f31657",
+      "140": "70293a6d397a41f6888f8b9f5b9f6b3b",
+      "141": "3571af9896464987bd9c8d1df64da3d9",
+      "142": "1482bf9755f64a3a995a71562368bfad",
+      "143": "db92e3239d7a4c238800302ca3f45c84",
+      "144": "888f7c7cf93c4f7b861bfe115619b4f0",
+      "197": "7bd6865ac76e4dfc8fb0f34d01bebb95",
+      "202": "f6f0b0a52d5a4fb0be5e805fe4087108"
+    },
+    "property_id": "32"
+  },
+  {
+    "id": "12",
+    "configuration_id": "1",
+    "sw_property_id": "01a79f5d2df4482eae24fe67d1284125",
+    "sw_property_options": {
+      "268": "ca885104bcd641d4b39c066d250f2bbf",
+      "269": "9b0fe895839441b08a26923e67e39361",
+      "270": "a62fc0e20b7349d9a7aa9565719b4228",
+      "271": "1700a22129394aa7b8e59d7120998ef3",
+      "272": "8af1ec66938d44c6bc5d760e668dc49f",
+      "273": "4347f8cb14124690b8c8d77a4015038d"
+    },
+    "property_id": "51"
+  },
+  {
+    "id": "13",
+    "configuration_id": "1",
+    "sw_property_id": "9e0642ccd8a3403cb66e9bce2625218c",
+    "sw_property_options": {
+      "296": "5e4b33a8511e4ed5b1761efe1782d69a"
+    },
+    "property_id": "55"
+  }
+]

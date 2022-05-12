@@ -1,0 +1,322 @@
+[
+  {
+    "id": "1",
+    "configuration_id": "1",
+    "sw_category_id": "c2544381e2f946b1a35bf9501e482e24",
+    "plenty_id": "4475",
+    "category_id": "0",
+    "updated_at": "1651835368"
+  },
+  {
+    "id": "2",
+    "configuration_id": "1",
+    "sw_category_id": "9b545a13991241da92ae7eef413095ba",
+    "plenty_id": "4475",
+    "category_id": "56",
+    "updated_at": "1652268348"
+  },
+  {
+    "id": "3",
+    "configuration_id": "1",
+    "sw_category_id": "eab0447724ba445db1deb6be83e0a7ec",
+    "plenty_id": "4475",
+    "category_id": "57",
+    "updated_at": "1652268349"
+  },
+  {
+    "id": "4",
+    "configuration_id": "1",
+    "sw_category_id": "9511d7715a904583bb4d5a84383a54c9",
+    "plenty_id": "4475",
+    "category_id": "58",
+    "updated_at": "1652268349"
+  },
+  {
+    "id": "5",
+    "configuration_id": "1",
+    "sw_category_id": "574ec798ac134870b33622855c4ef161",
+    "plenty_id": "4475",
+    "category_id": "59",
+    "updated_at": "1652268350"
+  },
+  {
+    "id": "6",
+    "configuration_id": "1",
+    "sw_category_id": "364405d449764a6f999e33d3c13370a2",
+    "plenty_id": "4475",
+    "category_id": "60",
+    "updated_at": "1652268350"
+  },
+  {
+    "id": "7",
+    "configuration_id": "1",
+    "sw_category_id": "68e37fddd8df4739bea1afe9353918df",
+    "plenty_id": "4475",
+    "category_id": "61",
+    "updated_at": "1652268350"
+  },
+  {
+    "id": "8",
+    "configuration_id": "1",
+    "sw_category_id": "d8830e99260446a5a56d8123ae42567e",
+    "plenty_id": "4475",
+    "category_id": "62",
+    "updated_at": "1652268351"
+  },
+  {
+    "id": "9",
+    "configuration_id": "1",
+    "sw_category_id": "5510bacb3737430ba9ffe5720e4063ae",
+    "plenty_id": "4475",
+    "category_id": "63",
+    "updated_at": "1652268352"
+  },
+  {
+    "id": "10",
+    "configuration_id": "1",
+    "sw_category_id": "d46eca9cfaa242c1b25d16dfec73d00e",
+    "plenty_id": "4475",
+    "category_id": "64",
+    "updated_at": "1652268352"
+  },
+  {
+    "id": "11",
+    "configuration_id": "1",
+    "sw_category_id": "4959903a46e24ea3807ad29241b9e4d6",
+    "plenty_id": "4475",
+    "category_id": "65",
+    "updated_at": "1652268352"
+  },
+  {
+    "id": "12",
+    "configuration_id": "1",
+    "sw_category_id": "b1262d19a20e4d2fb228094ca5046384",
+    "plenty_id": "4475",
+    "category_id": "66",
+    "updated_at": "1652268353"
+  },
+  {
+    "id": "13",
+    "configuration_id": "1",
+    "sw_category_id": "97691ab23fc84d6d8b442572fe0a3767",
+    "plenty_id": "4475",
+    "category_id": "67",
+    "updated_at": "1652268353"
+  },
+  {
+    "id": "14",
+    "configuration_id": "1",
+    "sw_category_id": "8028c075e9af4c0c8b214a2f490d9085",
+    "plenty_id": "4475",
+    "category_id": "68",
+    "updated_at": "1652268353"
+  },
+  {
+    "id": "15",
+    "configuration_id": "1",
+    "sw_category_id": "f1bdbd3cea0c4e3d96fdaddb7c7ecd4b",
+    "plenty_id": "4475",
+    "category_id": "69",
+    "updated_at": "1652268354"
+  },
+  {
+    "id": "16",
+    "configuration_id": "1",
+    "sw_category_id": "d4e87ec811004388b3053c55b81c2098",
+    "plenty_id": "4475",
+    "category_id": "70",
+    "updated_at": "1652268354"
+  },
+  {
+    "id": "17",
+    "configuration_id": "1",
+    "sw_category_id": "3afae39a7550410c9e9694dba8a6423c",
+    "plenty_id": "4475",
+    "category_id": "71",
+    "updated_at": "1652268354"
+  },
+  {
+    "id": "18",
+    "configuration_id": "1",
+    "sw_category_id": "de47af55755447f1833e08c93b8e2e91",
+    "plenty_id": "4475",
+    "category_id": "166",
+    "updated_at": "1652268355"
+  },
+  {
+    "id": "19",
+    "configuration_id": "1",
+    "sw_category_id": "85c8b68528ea4a8a81d575c21654149e",
+    "plenty_id": "4475",
+    "category_id": "169",
+    "updated_at": "1652268355"
+  },
+  {
+    "id": "20",
+    "configuration_id": "1",
+    "sw_category_id": "0bd7ad12be0243bd959600489d239149",
+    "plenty_id": "4475",
+    "category_id": "72",
+    "updated_at": "1652268355"
+  },
+  {
+    "id": "21",
+    "configuration_id": "1",
+    "sw_category_id": "5bcba2021a244ec3919c48475e680157",
+    "plenty_id": "4475",
+    "category_id": "73",
+    "updated_at": "1652268356"
+  },
+  {
+    "id": "22",
+    "configuration_id": "1",
+    "sw_category_id": "c93dd6f0d8bb4a15809cc9bc67c26962",
+    "plenty_id": "4475",
+    "category_id": "74",
+    "updated_at": "1652268356"
+  },
+  {
+    "id": "23",
+    "configuration_id": "1",
+    "sw_category_id": "61d8926b8a5349b3833bf8f3d7711194",
+    "plenty_id": "4475",
+    "category_id": "75",
+    "updated_at": "1652268356"
+  },
+  {
+    "id": "24",
+    "configuration_id": "1",
+    "sw_category_id": "7f2c5f18803049dbbe112bd9cbf1fa0e",
+    "plenty_id": "4475",
+    "category_id": "76",
+    "updated_at": "1652268357"
+  },
+  {
+    "id": "25",
+    "configuration_id": "1",
+    "sw_category_id": "570ce5fd353d4ffc8e092a68ff15796d",
+    "plenty_id": "4475",
+    "category_id": "77",
+    "updated_at": "1652268357"
+  },
+  {
+    "id": "26",
+    "configuration_id": "1",
+    "sw_category_id": "eb7488dd0bbf4a4692266f7d846acdaa",
+    "plenty_id": "4475",
+    "category_id": "78",
+    "updated_at": "1652268358"
+  },
+  {
+    "id": "27",
+    "configuration_id": "1",
+    "sw_category_id": "b6a19a91eb064839a4969245753e078d",
+    "plenty_id": "4475",
+    "category_id": "79",
+    "updated_at": "1652268358"
+  },
+  {
+    "id": "28",
+    "configuration_id": "1",
+    "sw_category_id": "3e6252461ca741b5a6aec825a234596e",
+    "plenty_id": "4475",
+    "category_id": "80",
+    "updated_at": "1652268358"
+  },
+  {
+    "id": "29",
+    "configuration_id": "1",
+    "sw_category_id": "214bdc475eb24ababab687455589d59c",
+    "plenty_id": "4475",
+    "category_id": "81",
+    "updated_at": "1652268359"
+  },
+  {
+    "id": "30",
+    "configuration_id": "1",
+    "sw_category_id": "67502251ff9f40619c99ef2338f1d4e3",
+    "plenty_id": "4475",
+    "category_id": "82",
+    "updated_at": "1652268359"
+  },
+  {
+    "id": "31",
+    "configuration_id": "1",
+    "sw_category_id": "813134e90eeb4a9da36484d91665ca9a",
+    "plenty_id": "4475",
+    "category_id": "83",
+    "updated_at": "1652268360"
+  },
+  {
+    "id": "32",
+    "configuration_id": "1",
+    "sw_category_id": "859f47308f27471caae8b4c33ff00a87",
+    "plenty_id": "4475",
+    "category_id": "84",
+    "updated_at": "1652268360"
+  },
+  {
+    "id": "33",
+    "configuration_id": "1",
+    "sw_category_id": "30d492a814d2424e8ce0a6cf42a67db4",
+    "plenty_id": "4475",
+    "category_id": "85",
+    "updated_at": "1652268361"
+  },
+  {
+    "id": "34",
+    "configuration_id": "1",
+    "sw_category_id": "2f3a12de8ed44fc1a857af94b124989b",
+    "plenty_id": "4475",
+    "category_id": "86",
+    "updated_at": "1652268362"
+  },
+  {
+    "id": "35",
+    "configuration_id": "1",
+    "sw_category_id": "a8a7e791b7194d328b7e66b9adddcdf2",
+    "plenty_id": "4475",
+    "category_id": "170",
+    "updated_at": "1652268363"
+  },
+  {
+    "id": "36",
+    "configuration_id": "1",
+    "sw_category_id": "75cd43851ce9421b809dca55909dd5d7",
+    "plenty_id": "4475",
+    "category_id": "87",
+    "updated_at": "1652269985"
+  },
+  {
+    "id": "37",
+    "configuration_id": "1",
+    "sw_category_id": "b277a94119b0432e9b4048f5ffd9d814",
+    "plenty_id": "4475",
+    "category_id": "98",
+    "updated_at": "1652268364"
+  },
+  {
+    "id": "38",
+    "configuration_id": "1",
+    "sw_category_id": "4d84813d23364c5891b187500c3bdcb1",
+    "plenty_id": "4475",
+    "category_id": "99",
+    "updated_at": "1652268364"
+  },
+  {
+    "id": "39",
+    "configuration_id": "1",
+    "sw_category_id": "af3b17ef1bae4de6afd4822d26251426",
+    "plenty_id": "4475",
+    "category_id": "101",
+    "updated_at": "1652268364"
+  },
+  {
+    "id": "40",
+    "configuration_id": "1",
+    "sw_category_id": "7f2c933270e84baaa56fe774888d4a0d",
+    "plenty_id": "4475",
+    "category_id": "171",
+    "updated_at": "1652268364"
+  }
+]

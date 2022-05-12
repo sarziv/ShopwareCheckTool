@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "configuration_id": "1",
+    "sw_delivery_date_id": "576b6ce291e04e49bc22287682bdcba2",
+    "availability_id": "1"
+  },
+  {
+    "id": "2",
+    "configuration_id": "1",
+    "sw_delivery_date_id": "8d6a61e825704a38be9d41b58e9371ae",
+    "availability_id": "2"
+  },
+  {
+    "id": "3",
+    "configuration_id": "1",
+    "sw_delivery_date_id": "f24f529593e846609d8fe8ded451f964",
+    "availability_id": "3"
+  },
+  {
+    "id": "4",
+    "configuration_id": "1",
+    "sw_delivery_date_id": "9798e9dc55c947c0ae6427ad5b035aae",
+    "availability_id": "4"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "autoload": {
+    "psr-4": {
+      "ShopwareCheckTool\\": "src/"
+    }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^7.4",
+    "illuminate/collections": "^8.83"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  }
+}
