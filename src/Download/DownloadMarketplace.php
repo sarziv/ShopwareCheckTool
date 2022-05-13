@@ -84,7 +84,6 @@ class DownloadMarketplace
                 continue;
             }
             $this->save($table['name'], $call->getBody()->getContents());
-
         }
         echo 'Downloading finished.' . PHP_EOL;
         return $this;

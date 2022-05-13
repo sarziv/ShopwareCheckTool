@@ -8,12 +8,12 @@ trait Timable
 {
     private array $time = [];
 
-    public function start(string $name): void
+    protected function start(string $name): void
     {
         $this->time[$name] = microtime(true);
     }
 
-    public function end(string $name): float
+    protected function end(string $name): float
     {
         if (!isset($this->start[$name])) {
             return 0.0;
