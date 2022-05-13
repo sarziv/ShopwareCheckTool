@@ -11,6 +11,7 @@ class Configuration
     protected string $client_secret;
     protected string $access_token;
     protected int $expires_in;
+    protected string $path;
 
     /**
      * @return string
@@ -122,5 +123,21 @@ class Configuration
     public function setExpiresIn(int $expires_in): void
     {
         $this->expires_in = $expires_in;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath(string $path): void
+    {
+        $this->path = $path;
     }
 }

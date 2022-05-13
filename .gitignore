@@ -1,2 +1,5 @@
 /.idea/
 /vendor/
+/src/Logs/
+/src/Logs/Downloaded/
+/src/credentials.php

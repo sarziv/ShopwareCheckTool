@@ -14,7 +14,6 @@ class Refresh
 {
     public Configuration $configuration;
     private Client $client;
-    private int $count = 0;
 
     public function __construct(int $configurationId)
     {
@@ -27,7 +26,6 @@ class Refresh
         if ($this->configuration->getExpiresIn() > time()) {
             return;
         }
-        echo 'Refreshing token' . PHP_EOL;
         try {
             $token = $this->client->post('/api/oauth/token', [RequestOptions::FORM_PARAMS => [
                 'grant_type' => 'client_credentials',

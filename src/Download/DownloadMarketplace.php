@@ -19,6 +19,8 @@ class DownloadMarketplace
     private const DELIVERY = ['uri' => self::PREFIX . 'DeliveryTimeMatch', 'name' => 'Delivery'];
     private const PROPERTY = ['uri' => self::PREFIX . 'PropertyMatch', 'name' => 'Property'];
     private const VARIATION_IMAGE_QUEUE = ['uri' => self::PREFIX . 'VariationImageQueue', 'name' => 'Images'];
+    private const TAG = ['uri' => self::PREFIX . 'TagMatching', 'name' => 'Tag'];
+    private bool $disable = false;
 
     private const LIST = [
         self::CONFIGURATION,
@@ -29,6 +31,7 @@ class DownloadMarketplace
         self::DELIVERY,
         self::PROPERTY,
         self::VARIATION_IMAGE_QUEUE,
+        self::TAG
     ];
 
     private Marketplace $marketplace;
@@ -44,21 +47,47 @@ class DownloadMarketplace
         ]]);
     }
 
-    public function download(): void
+    /**
+     * @return DownloadMarketplace
+     */
+    public function disable(): DownloadMarketplace
     {
+        $this->disable = false;
+        return $this;
+    }
+
+    /**
+     * @return DownloadMarketplace
+     */
+    public function enable(): DownloadMarketplace
+    {
+        $this->disable = true;
+        return $this;
+    }
+
+    /**
+     * @return DownloadMarketplace
+     */
+    public function download(): DownloadMarketplace
+    {
+        if (!$this->disable) {
+            echo 'Downloading disabled.' . PHP_EOL;
+            return $this;
+        }
         echo "Downloading started: '{$this->marketplace->getDomain()}'" . PHP_EOL;
         foreach (self::LIST as $table) {
+            echo "Downloading: {$table['name']}" . PHP_EOL;
             try {
                 $call = $this->client->get($table['uri']);
             } catch (GuzzleException $e) {
                 echo "Download {$table['name']} error: {$e->getMessage()}" . PHP_EOL;
                 continue;
             }
-            echo "Downloading: {$table['name']}, Status code: {$call->getStatusCode()}" . PHP_EOL;
             $this->save($table['name'], $call->getBody()->getContents());
 
         }
         echo 'Downloading finished.' . PHP_EOL;
+        return $this;
     }
 
     private function save(string $name, string $json): void
@@ -66,7 +95,6 @@ class DownloadMarketplace
         $file = __DIR__ . "/../Logs/Downloaded/$name.json";
         if (file_exists($file)) {
             unlink($file);
-            echo "Deleting outdated file: $name" . PHP_EOL;
         }
         file_put_contents($file, $json);
     }
