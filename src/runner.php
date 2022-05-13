@@ -15,9 +15,9 @@ $marketplace->setDomain($credentials['domain']);
 $marketplace->setToken($credentials['token']);
 
 $downloadMarketplace = new DownloadMarketplace($marketplace);
-$downloadMarketplace->enable()->download();
+$downloadMarketplace->disable()->download();
 
 $shopware = new Shopware($credentials['configurationId']);
 $tasker = new Tasker($shopware);
 
-$tasker->all()->total();
+$tasker->attribute()->total();

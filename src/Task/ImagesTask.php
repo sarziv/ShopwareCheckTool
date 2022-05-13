@@ -48,9 +48,6 @@ class ImagesTask
             $mediaCollection = Collection::make($getProductMedia['response']['data']);
             $imageListCollection = Collection::make($imageList);
             foreach ($mediaCollection as $media) {
-                if ($media['type'] !== 'product_media') {
-                    continue;
-                }
                 $imageFound = $imageListCollection->where('sw_product_media_id', '=', $media['id'])->first();
                 $this->log[$productId]['media'][$media['id']] = (@(int)$imageFound['variation_id'] ?: 'Invalid media');
                 if (empty($imageFound['variation_id'])) {
