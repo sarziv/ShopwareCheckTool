@@ -22,13 +22,12 @@ trait Timable
         return microtime(true) - $this->time[$name];
     }
 
-    public function total(): void
+    public function __destruct()
     {
         $timers = [];
         foreach ($this->time as $name => $start) {
             $timers[$name] = microtime(true) - $start;
         }
-
-        echo "Tasks completed. Time: " . gmdate("H:i:s", ((int)array_sum($timers))) . ' seconds' . PHP_EOL;
+        echo "Tasks completed. Time: " . gmdate('H:i:s', (round(array_sum($timers)))) . ' seconds' . PHP_EOL;
     }
 }

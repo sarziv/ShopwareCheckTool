@@ -3,12 +3,14 @@
 namespace ShopwareCheckTool\Task;
 
 use RuntimeException;
+use ShopwareCheckTool\Models\Marketplace;
 use ShopwareCheckTool\Requests\Shopware;
 use ShopwareCheckTool\Traits\Timable;
 
 class Tasker
 {
     use Timable;
+
     private Shopware $shopware;
 
     public function __construct(Shopware $shopware)
@@ -53,6 +55,14 @@ class Tasker
         return $this;
     }
 
+    public function measurement(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new MeasurementTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
     public function property(): Tasker
     {
         $this->start(__FUNCTION__);
@@ -77,15 +87,43 @@ class Tasker
         return $this;
     }
 
+    public function imageDeep(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new ImageDeepTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
+    public function imageDeepClean(Marketplace $marketplace): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new ImageDeepInvalidTask($this->shopware))->check($marketplace);
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
+    public function imageDuplicate(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new ImageDuplicateTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
+
     public function all(): Tasker
     {
         (new AttributeTask($this->shopware))->check();
         (new CategoryTask($this->shopware))->check();
         (new DeliveryTask($this->shopware))->check();
         (new ManufacturerTask($this->shopware))->check();
+        (new MeasurementTask($this->shopware))->check();
         (new PropertyTask($this->shopware))->check();
         (new TagTask($this->shopware))->check();
         (new ImagesTask($this->shopware))->check();
         return $this;
     }
+
+
 }

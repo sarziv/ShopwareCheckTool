@@ -8,10 +8,8 @@ use Illuminate\Support\Collection;
 use ReflectionClass;
 use ShopwareCheckTool\Requests\Shopware;
 
-class ImagesTask
+class ImageDeepTask
 {
-    private int $count = 1;
-    private int $total;
     private Shopware $shopware;
     private string $name;
     private array $file = [];
@@ -27,44 +25,40 @@ class ImagesTask
             $this->file = Collection::make(json_decode(file_get_contents($file), true))
                 ->where('configuration_id', '=', $this->shopware->configuration->getId())
                 ->where('is_uploaded', '=', '1')
-                ->groupBy('sw_product_id')
                 ->toArray();
         }
         if (!$this->file) {
             echo "{$this->name} file is empty. Task skipped." . PHP_EOL;
         }
-        $this->total = count($this->file);
     }
 
     public function check(): void
     {
-        foreach ($this->file as $productId => $imageList) {
-            echo $this->name . ':' . $this->count++ . '/' . $this->total . PHP_EOL;
-            $getProductMedia = $this->shopware->getMediaByProductId($productId);
-            $this->log[$productId]['product'] = (@$getProductMedia['code'] ?: $getProductMedia['error']);
-            if (array_key_exists('error', $getProductMedia)) {
+        foreach ($this->file as $image) {
+            echo "Reading {$this->name}: {$image['id']}" . PHP_EOL;
+            $getProduct = $this->shopware->getProductById($image['sw_product_id']);
+            $this->log[$image['id']]['sw_product_id'] = (@$getProduct['code'] ?: $getProduct['error']);
+            $this->log[$image['id']]['coverId'] = @$getProduct['response']['data']['attributes']['coverId'] ?: 'No cover';
+            if (array_key_exists('error', $getProduct)) {
+                $this->invalid[] = $image['id'];
                 continue;
             }
-            $mediaCollection = Collection::make($getProductMedia['response']['data']);
-            $imageListCollection = Collection::make($imageList);
-            foreach ($mediaCollection as $media) {
-                $imageFound = $imageListCollection->where('sw_product_media_id', '=', $media['id'])->first();
-                $this->log[$productId]['media'][$media['id']] = (@(int)$imageFound['variation_id'] ?: 'Invalid media');
-                if (empty($imageFound['variation_id'])) {
-                    $this->invalid[$productId][] = $media['id'];
-                }
+
+            $getMedia = $this->shopware->getMediaById($image['sw_media_id']);
+            $this->log[$image['id']]['sw_media_id'] = (@$getMedia['code'] ?: $getMedia['error']);
+            if (array_key_exists('error', $getMedia)) {
+                $this->invalid[] = $image['id'];
+                continue;
             }
+            $getProductMedia = $this->shopware->getProductMediaById($image['sw_product_media_id']);
+            $this->log[$image['id']]['sw_product_media_id'] = (@$getProductMedia['code'] ?: $getProductMedia['error']);
         }
         $this->log['invalid']['count'] = count($this->invalid);
         $this->log['invalid']['media'] = $this->invalid;
-        $this->toFile();
-    }
-
-    private function toFile(): void
-    {
         $file = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/$this->name.json";
         if (file_exists($file)) {
             unlink($file);
+            echo "Generating new file." . PHP_EOL;
         }
         file_put_contents($file, json_encode($this->log, JSON_PRETTY_PRINT));
         echo "{$this->name} completed." . PHP_EOL;

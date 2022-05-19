@@ -212,4 +212,22 @@ class Shopware extends Refresh
             'response' => json_decode($call->getBody()->getContents(), true)
         ];
     }
+
+    public function deleteProductMediaById(string $id): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->delete("product-media/$id?_response=true", [RequestOptions::HEADERS => [
+                'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                'Accept' => '*/*',
+                'Content-Type' => 'application/json'
+            ]]);
+        } catch (GuzzleException $e) {
+            return ['error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
 }
