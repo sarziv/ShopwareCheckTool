@@ -17,9 +17,9 @@ $marketplace->setDomain($credentials['domain']);
 $marketplace->setToken($credentials['token']);
 
 $downloadMarketplace = new DownloadMarketplace($marketplace);
-$downloadMarketplace->disable()->download();
+$downloadMarketplace->enable()->download();
 
 $shopware = new Shopware($credentials['configurationId']);
 $tasker = new Tasker($shopware);
 
-$tasker->imageDeepClean($marketplace);
+$tasker->images()->imageDuplicate();

@@ -22,6 +22,19 @@ class Plentymarket
         ]]);
     }
 
+    public function deleteProductVisibilityById(string $id): array
+    {
+        try {
+            $call = $this->client->delete("/rest/PlentymarketsShopwareCore/deleteTableRecords?model=ProductVisibility&whereKey=id&whereValue=$id");
+        } catch (GuzzleException $e) {
+            return ['error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
     public function updateVariationImageQueueById(string $id, array $payload): array
     {
         try {

@@ -31,6 +31,14 @@ class Tasker
         return $this;
     }
 
+    public function attributeRework(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new AttributeReworkTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
     public function category(): Tasker
     {
         $this->start(__FUNCTION__);
@@ -111,10 +119,34 @@ class Tasker
         return $this;
     }
 
+    public function productVisibility(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new ProductVisibilityTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
+    public function productConfigurator(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new ProductConfiguratorTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
+    public function productConfiguratorDuplicate(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new ProductConfiguratorDuplicateTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
 
     public function all(): Tasker
     {
         (new AttributeTask($this->shopware))->check();
+        (new AttributeReworkTask($this->shopware))->check();
         (new CategoryTask($this->shopware))->check();
         (new DeliveryTask($this->shopware))->check();
         (new ManufacturerTask($this->shopware))->check();
@@ -122,8 +154,7 @@ class Tasker
         (new PropertyTask($this->shopware))->check();
         (new TagTask($this->shopware))->check();
         (new ImagesTask($this->shopware))->check();
+        (new ProductVisibilityTask($this->shopware))->check();
         return $this;
     }
-
-
 }

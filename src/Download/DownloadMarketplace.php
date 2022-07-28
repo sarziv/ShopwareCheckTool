@@ -13,6 +13,7 @@ class DownloadMarketplace
     private const PREFIX = '/rest/PlentymarketsShopwareCore/test?model=';
     private const CONFIGURATION = ['uri' => self::PREFIX . 'Configuration', 'name' => 'Configuration'];
     private const ATTRIBUTE = ['uri' => self::PREFIX . 'AttributeMatch', 'name' => 'Attribute'];
+    private const ATTRIBUTE_REWORK = ['uri' => self::PREFIX . 'AttributeReworkMatch', 'name' => 'AttributeReworkMatch'];
     private const CATEGORY = ['uri' => self::PREFIX . 'CategoryMatch', 'name' => 'Category'];
     private const MANUFACTURER = ['uri' => self::PREFIX . 'ManufacturerMatch', 'name' => 'Manufacturer'];
     private const MEASUREMENT = ['uri' => self::PREFIX . 'MeasurementUnitMatch', 'name' => 'Measurement'];
@@ -20,18 +21,23 @@ class DownloadMarketplace
     private const PROPERTY = ['uri' => self::PREFIX . 'PropertyMatch', 'name' => 'Property'];
     private const VARIATION_IMAGE_QUEUE = ['uri' => self::PREFIX . 'VariationImageQueue', 'name' => 'Images'];
     private const TAG = ['uri' => self::PREFIX . 'TagMatching', 'name' => 'Tag'];
+    private const PRODUCT_CONFIGURATION = ['uri' => self::PREFIX . 'ProductConfigurator', 'name' => 'ProductConfigurator'];
+    private const PRODUCT_VISIBILITY = ['uri' => self::PREFIX . 'ProductVisibility', 'name' => 'ProductVisibility'];
     private bool $disable = false;
 
     private const LIST = [
         self::CONFIGURATION,
         self::ATTRIBUTE,
+        self::ATTRIBUTE_REWORK,
         self::CATEGORY,
         self::MANUFACTURER,
         self::MEASUREMENT,
         self::DELIVERY,
         self::PROPERTY,
         self::VARIATION_IMAGE_QUEUE,
-        self::TAG
+        self::TAG,
+        self::PRODUCT_CONFIGURATION,
+        self::PRODUCT_VISIBILITY
     ];
 
     private Marketplace $marketplace;
