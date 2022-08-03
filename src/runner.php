@@ -22,4 +22,4 @@ $downloadMarketplace->enable()->download();
 $shopware = new Shopware($credentials['configurationId']);
 $tasker = new Tasker($shopware);
 
-$tasker->images()->imageDuplicate();
+$tasker->all();
