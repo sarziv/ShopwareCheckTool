@@ -5,9 +5,7 @@ require_once('../vendor/autoload.php');
 
 use ShopwareCheckTool\Download\DownloadMarketplace;
 use ShopwareCheckTool\Models\Marketplace;
-use ShopwareCheckTool\Requests\Plentymarket;
 use ShopwareCheckTool\Requests\Shopware;
-use ShopwareCheckTool\Task\PropertyTask;
 use ShopwareCheckTool\Task\Tasker;
 
 $credentials = include __DIR__ . '/credentials.php'; //files for credentials

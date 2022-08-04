@@ -97,7 +97,13 @@ class DownloadMarketplace
 
     private function save(string $name, string $json): void
     {
-        $file = __DIR__ . "/../Logs/Downloaded/$name.json";
+        $dir = __DIR__ . "/../Logs/Downloaded";
+        $file = "$dir/$name.json";
+
+        if (!mkdir($dir, 0777, true) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
+
         if (file_exists($file)) {
             unlink($file);
         }
