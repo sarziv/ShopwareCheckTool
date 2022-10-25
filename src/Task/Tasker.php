@@ -143,6 +143,14 @@ class Tasker
         return $this;
     }
 
+    public function shopwareErrorDuplicateProductNumber(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new ShopwareErrorDuplicateProductNumberTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
     public function all(): Tasker
     {
         (new AttributeTask($this->shopware))->check();

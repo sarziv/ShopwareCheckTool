@@ -23,6 +23,8 @@ class DownloadMarketplace
     private const TAG = ['uri' => self::PREFIX . 'TagMatching', 'name' => 'Tag'];
     private const PRODUCT_CONFIGURATION = ['uri' => self::PREFIX . 'ProductConfigurator', 'name' => 'ProductConfigurator'];
     private const PRODUCT_VISIBILITY = ['uri' => self::PREFIX . 'ProductVisibility', 'name' => 'ProductVisibility'];
+    private const SHOPWARE_ERRORS = ['uri' => self::PREFIX . 'ShopwareError', 'name' => 'ShopwareError'];
+    private const REFERRERS = ['uri' => self::PREFIX . 'Referrer', 'name' => 'Referrer'];
     private bool $disable = false;
 
     private const LIST = [
@@ -37,7 +39,9 @@ class DownloadMarketplace
         self::VARIATION_IMAGE_QUEUE,
         self::TAG,
         self::PRODUCT_CONFIGURATION,
-        self::PRODUCT_VISIBILITY
+        self::PRODUCT_VISIBILITY,
+        self::SHOPWARE_ERRORS,
+        self::REFERRERS
     ];
 
     private Marketplace $marketplace;

@@ -15,7 +15,7 @@ trait Timable
 
     protected function end(string $name): float
     {
-        if (!isset($this->start[$name])) {
+        if (!isset($this->time[$name])) {
             return 0;
         }
 

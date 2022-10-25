@@ -6,40 +6,35 @@ namespace ShopwareCheckTool\Task;
 
 use Illuminate\Support\Collection;
 use ReflectionClass;
+use ShopwareCheckTool\FileManagement\File;
 use ShopwareCheckTool\Requests\Shopware;
 
-class ProductConfiguratorTask
+class ProductConfiguratorTask extends File
 {
-    private int $count = 1;
-    private int $total;
-    private Shopware $shopware;
-    private string $name;
-    private array $file = [];
-    private array $attribute = [];
+    protected string $name;
+    protected Shopware $shopware;
+    private array $file;
+    private array $attribute;
     private array $log = [];
     private array $invalid = [];
+    private int $total;
+    private int $count = 1;
 
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $file = __DIR__ . '/../Logs/Downloaded/ProductConfigurator.json';
-        if (file_exists($file)) {
-            $this->file = Collection::make(json_decode(file_get_contents($file), true))
-                ->where('configuration_id', '=', $this->shopware->configuration->getId())
-                ->groupBy('sw_product_id')
-                ->toArray();
-        }
-        $attribute = __DIR__ . '/../Logs/Downloaded/AttributeReworkMatch.json';
-        if (file_exists($attribute)) {
-            $this->attribute = Collection::make(json_decode(file_get_contents($attribute), true))
-                ->where('configuration_id', '=', $this->shopware->configuration->getId())
-                ->pluck('sw_property_option_id')
-                ->toArray();
-        }
-        if (!$this->file) {
-            echo "{$this->name} file is empty. Task skipped." . PHP_EOL;
-        }
+
+        $this->file = Collection::make($this->readFile('ProductConfigurator'))
+            ->where('configuration_id', '=', $this->shopware->configuration->getId())
+            ->groupBy('sw_product_id')
+            ->toArray();
+
+        $this->attribute = Collection::make($this->readFile('AttributeReworkMatch'))
+            ->where('configuration_id', '=', $this->shopware->configuration->getId())
+            ->pluck('sw_property_option_id')
+            ->toArray();
+
         $this->total = count($this->file);
     }
 
@@ -78,16 +73,6 @@ class ProductConfiguratorTask
         }
         $this->log['invalid']['count'] = count($this->invalid);
         $this->log['invalid']['configuration'] = $this->invalid;
-        $this->toFile();
-    }
-
-    private function toFile(): void
-    {
-        $file = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/$this->name.json";
-        if (file_exists($file)) {
-            unlink($file);
-        }
-        file_put_contents($file, json_encode($this->log, JSON_PRETTY_PRINT));
-        echo "{$this->name} completed." . PHP_EOL;
+        $this->saveFile($this->log);
     }
 }

@@ -5,25 +5,24 @@ namespace ShopwareCheckTool\Task;
 
 
 use ReflectionClass;
+use ShopwareCheckTool\FileManagement\File;
 use ShopwareCheckTool\Models\Marketplace;
 use ShopwareCheckTool\Requests\Plentymarket;
 use ShopwareCheckTool\Requests\Shopware;
 
-class ImageDeepInvalidTask
+class ImageDeepInvalidTask extends File
 {
-    private string $name;
-    private array $file = [];
+    protected string $name;
+    protected Shopware $shopware;
+    private array $file;
+    private array $log = [];
 
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
-        $file = __DIR__ . "/../Logs/Completed/{$shopware->configuration->getPath()}/ImageDeepTask.json";
-        if (file_exists($file)) {
-            $this->file = json_decode(file_get_contents($file), true)['invalid'];
-        }
-        if (!$this->file) {
-            echo "{$this->name} file is empty. Task skipped." . PHP_EOL;
-        }
+        $this->shopware = $shopware;
+        $this->useCompletedFolder();
+        $this->file = $this->readFile('ImageDeepTask')['invalid'];
     }
 
     public function check(Marketplace $marketplace): void
@@ -40,8 +39,10 @@ class ImageDeepInvalidTask
             echo "Reading {$this->name}: $id" . PHP_EOL;
             sleep(1);
             $resp = $plentymarket->updateVariationImageQueueById($id, $cleanPayload);
-            echo "Updated: $id, Status: {$resp['code']}" . PHP_EOL;
+            echo "{$this->name}-ID:$id, CODE:{$resp['code']}" . PHP_EOL;
+            $this->log[] = ["$id:{$resp['code']}"];
         }
+        $this->saveFile($this->log);
         echo "{$this->name} completed." . PHP_EOL;
     }
 }

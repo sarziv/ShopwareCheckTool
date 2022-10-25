@@ -9,6 +9,7 @@ use GuzzleHttp\RequestOptions;
 class Shopware extends Refresh
 {
     private Client $client;
+
     public function __construct(int $configurationId)
     {
         parent::__construct($configurationId);
@@ -308,6 +309,53 @@ class Shopware extends Refresh
         $this->authenticate();
         try {
             $call = $this->client->delete("product-media/$id?_response=true", [RequestOptions::HEADERS => [
+                'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                'Accept' => '*/*',
+                'Content-Type' => 'application/json'
+            ]]);
+        } catch (GuzzleException $e) {
+            return ['error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
+    public function postProductSearch(string $productNumber): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->post("search/product", [
+                RequestOptions::HEADERS => [
+                    'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                    'Accept' => '*/*',
+                    'Content-Type' => 'application/json'
+                ],
+                RequestOptions::JSON => [
+                    'filter' => [
+                        [
+                            'type' => 'equals',
+                            'field' => 'product.productNumber',
+                            'value' => $productNumber
+                        ]
+                    ]
+                ]
+            ]);
+        } catch (GuzzleException $e) {
+            return ['error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
+    public function deleteProductById(string $id): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->delete("product/$id?_response=true", [RequestOptions::HEADERS => [
                 'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
                 'Accept' => '*/*',
                 'Content-Type' => 'application/json'

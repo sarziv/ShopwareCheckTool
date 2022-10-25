@@ -6,31 +6,24 @@ namespace ShopwareCheckTool\Task;
 
 use Illuminate\Support\Collection;
 use ReflectionClass;
+use ShopwareCheckTool\FileManagement\File;
 use ShopwareCheckTool\Requests\Shopware;
 
-class ProductVisibilityTask
+class ProductVisibilityTask extends File
 {
-    private int $count = 1;
-    private int $total;
-    private Shopware $shopware;
-    private string $name;
-    private array $file = [];
-    private array $log = [];
+    protected string $name;
+    protected Shopware $shopware;
+    private array $file;
     private array $invalid = [];
+    private array $log = [];
+    private int $total;
+    private int $count = 1;
 
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $file = __DIR__ . '/../Logs/Downloaded/ProductVisibility.json';
-        if (file_exists($file)) {
-            $this->file = Collection::make(json_decode(file_get_contents($file), true))
-                ->where('configuration_id', '=', $this->shopware->configuration->getId())
-                ->toArray();
-        }
-        if (!$this->file) {
-            echo "{$this->name} file is empty. Task skipped." . PHP_EOL;
-        }
+        $this->file = Collection::make($this->readFile('ProductVisibility'))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
         $this->total = count($this->file);
     }
 
@@ -40,22 +33,12 @@ class ProductVisibilityTask
             echo $this->name . ':' . $this->count++ . '/' . $this->total . PHP_EOL;
             $getProductVisibility = $this->shopware->getProductVisibilityById($productVisibility['sw_visibility_id']);
             $this->log[$productVisibility['id']]['visibility'] = (@$getProductVisibility['code'] ?: $getProductVisibility['error']);
-            if(@$getProductVisibility['code'] != 200){
+            if (@$getProductVisibility['code'] != 200) {
                 $this->invalid[] = $productVisibility['id'];
             }
         }
         $this->log['invalid']['count'] = count($this->invalid);
         $this->log['invalid']['visibility'] = $this->invalid;
-        $this->toFile();
-    }
-
-    private function toFile(): void
-    {
-        $file = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/$this->name.json";
-        if (file_exists($file)) {
-            unlink($file);
-        }
-        file_put_contents($file, json_encode($this->log, JSON_PRETTY_PRINT));
-        echo "{$this->name} completed." . PHP_EOL;
+        $this->saveFile($this->log);
     }
 }
