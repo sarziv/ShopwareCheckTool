@@ -32,7 +32,8 @@ class ImageDeepTask extends File
         foreach ($this->file as $image) {
             echo "Reading {$this->name}: {$image['id']}" . PHP_EOL;
             $getProduct = $this->shopware->getProductById($image['sw_product_id']);
-            if ($getProduct['code'] !== 200) {
+            if (@$getProduct['code'] !== 200) {
+                $this->invalid[] = $image['id'];
                 continue;
             }
             $this->log[$image['id']]['sw_product_id'] = (@$getProduct['code'] ?: $getProduct['error']);

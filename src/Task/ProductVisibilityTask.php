@@ -23,7 +23,9 @@ class ProductVisibilityTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->file = Collection::make($this->readFile('ProductVisibility'))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
+        $this->file = Collection::make($this->readFile('ProductVisibility'))
+            ->where('configuration_id', '=', $this->shopware->configuration->getId())
+            ->toArray();
         $this->total = count($this->file);
     }
 

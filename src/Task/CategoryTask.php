@@ -20,7 +20,7 @@ class CategoryTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->file = Collection::make('Category')->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
+        $this->file = Collection::make($this->readFile('Category'))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
     }
 
     public function check(): void
