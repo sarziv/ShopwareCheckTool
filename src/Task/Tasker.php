@@ -151,6 +151,22 @@ class Tasker
         return $this;
     }
 
+    public function shopwareCovers(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new ShopwareCoversTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
+    public function customRemoveTable(array $payload, Marketplace $marketplace, string $table, string $key = null): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new CustomPluginRemoveTask($this->shopware))->check($payload, $marketplace, $table, $key);
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
     public function all(): Tasker
     {
         (new AttributeTask($this->shopware))->check();

@@ -368,4 +368,66 @@ class Shopware extends Refresh
             'response' => json_decode($call->getBody()->getContents(), true)
         ];
     }
+
+    public function paginateProducts(int $page): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->post("search/product", [RequestOptions::HEADERS => [
+                'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                'Accept' => '*/*',
+                'Content-Type' => 'application/json'
+            ],
+                RequestOptions::JSON => [
+                    'page' => $page,
+                    'limit' => 100,
+                    'filter' => [
+                        [
+                            'type' => 'equals',
+                            'field' => 'product.coverId',
+                            'value' => null
+                        ]
+                    ]
+                ]
+            ]);
+        } catch (GuzzleException $e) {
+            return ['error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
+    public function updateProductCover(string $productId, string $coverId): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->post("_action/sync", [RequestOptions::HEADERS => [
+                'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                'Accept' => '*/*',
+                'Content-Type' => 'application/json'
+            ],
+                RequestOptions::JSON => [
+                    'write-product' => [
+                        'entity' => 'product',
+                        'action' => 'upsert',
+                        'payload' => [
+                            [
+                                'id' => $productId,
+                                'coverId' => $coverId,
+                            ]
+                        ]
+                    ]
+
+                ]
+            ]);
+        } catch (GuzzleException $e) {
+            return ['error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
 }

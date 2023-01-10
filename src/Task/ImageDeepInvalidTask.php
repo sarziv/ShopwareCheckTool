@@ -40,9 +40,8 @@ class ImageDeepInvalidTask extends File
             sleep(1);
             $resp = $plentymarket->updateVariationImageQueueById($id, $cleanPayload);
             echo "{$this->name}-ID:$id, CODE:{$resp['code']}" . PHP_EOL;
-            $this->log[] = ["$id:{$resp['code']}"];
+            $this->log[$id] = (string)($resp['code']);
         }
         $this->saveFile($this->log);
-        echo "{$this->name} completed." . PHP_EOL;
     }
 }
