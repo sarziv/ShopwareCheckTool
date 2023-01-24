@@ -48,8 +48,17 @@ class ImageDeepTask extends File
                 $this->invalid[] = $image['id'];
                 continue;
             }
+
+            $getMediaThumbnailsById = $this->shopware->getMediaThumbnailsById($image['sw_media_id']);
+            if (empty($getMediaThumbnailsById['response']['data'])) {
+                $this->log[$image['id']]['sw_media_thumbnails'] = (@$getMediaThumbnailsById['response'] ?: $getMediaThumbnailsById['error']);
+                $this->invalid[] = $image['id'];
+                continue;
+            }
+
             $getProductMedia = $this->shopware->getProductMediaById($image['sw_product_media_id']);
             $this->log[$image['id']]['sw_product_media_id'] = (@$getProductMedia['code'] ?: $getProductMedia['error']);
+            file_put_contents(__DIR__ . self::COMPLETED_FOLDER . "{$this->shopware->configuration->getPath()}/" . "log.txt", "IMAGE:{$image['id']}" . PHP_EOL, FILE_APPEND);
         }
         $this->log['invalid']['count'] = count($this->invalid);
         $this->log['invalid']['list'] = $this->invalid;

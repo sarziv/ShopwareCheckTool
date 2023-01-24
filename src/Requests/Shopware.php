@@ -160,6 +160,24 @@ class Shopware extends Refresh
         ];
     }
 
+    public function getMediaThumbnailsById(string $id): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->get("media/$id/thumbnails?_response=true", [RequestOptions::HEADERS => [
+                'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                'Accept' => '*/*',
+                'Content-Type' => 'application/json'
+            ]]);
+        } catch (GuzzleException $e) {
+            return ['error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
     public function getProductMediaById(string $id): array
     {
         $this->authenticate();

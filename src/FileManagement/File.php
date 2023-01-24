@@ -11,7 +11,7 @@ abstract class File
     protected string $name;
     protected Shopware $shopware;
     private const DOWNLOAD_FOLDER = '/../Logs/Downloaded/';
-    private const COMPLETED_FOLDER = '/../Logs/Completed/';
+    protected const COMPLETED_FOLDER = '/../Logs/Completed/';
     private string $path = '';
 
     public function readFile(string $fileName, bool $withJSON = true): array
