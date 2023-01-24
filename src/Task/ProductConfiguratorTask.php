@@ -19,13 +19,14 @@ class ProductConfiguratorTask extends File
     private array $invalid = [];
     private int $total;
     private int $count = 1;
-
+    public const FILE_NAME = 'ProductConfigurator';
+    public const TABLE = 'ProductConfigurator';
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
 
-        $this->file = Collection::make($this->readFile('ProductConfigurator'))
+        $this->file = Collection::make($this->readFile(self::FILE_NAME))
             ->where('configuration_id', '=', $this->shopware->configuration->getId())
             ->groupBy('sw_product_id')
             ->toArray();

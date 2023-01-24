@@ -13,7 +13,7 @@ class DownloadMarketplace
     private const PREFIX = '/rest/PlentymarketsShopwareCore/test?model=';
     private const CONFIGURATION = ['uri' => self::PREFIX . 'Configuration', 'name' => 'Configuration'];
     private const ATTRIBUTE = ['uri' => self::PREFIX . 'AttributeMatch', 'name' => 'Attribute'];
-    private const ATTRIBUTE_REWORK = ['uri' => self::PREFIX . 'AttributeReworkMatch', 'name' => 'AttributeReworkMatch'];
+    private const ATTRIBUTE_REWORK = ['uri' => self::PREFIX . 'AttributeReworkMatch', 'name' => 'AttributeRework'];
     private const CATEGORY = ['uri' => self::PREFIX . 'CategoryMatch', 'name' => 'Category'];
     private const MANUFACTURER = ['uri' => self::PREFIX . 'ManufacturerMatch', 'name' => 'Manufacturer'];
     private const MEASUREMENT = ['uri' => self::PREFIX . 'MeasurementUnitMatch', 'name' => 'Measurement'];
@@ -36,12 +36,14 @@ class DownloadMarketplace
         self::MEASUREMENT,
         self::DELIVERY,
         self::PROPERTY,
-        self::VARIATION_IMAGE_QUEUE,
         self::TAG,
         self::PRODUCT_CONFIGURATION,
         self::PRODUCT_VISIBILITY,
         self::SHOPWARE_ERRORS,
         self::REFERRERS
+    ];
+    private const LIST_PAGINATE = [
+        self::VARIATION_IMAGE_QUEUE
     ];
 
     private Marketplace $marketplace;
@@ -95,7 +97,37 @@ class DownloadMarketplace
             }
             $this->save($table['name'], $call->getBody()->getContents());
         }
+        $this->downloadPaginate();
         echo 'Downloading finished.' . PHP_EOL;
+        return $this;
+    }
+
+    /**
+     * @return DownloadMarketplace
+     */
+    public function downloadPaginate(): DownloadMarketplace
+    {
+        if (!$this->disable) {
+            return $this;
+        }
+        foreach (self::LIST_PAGINATE as $table) {
+            $page = 1;
+            $payload = [];
+            echo "Downloading: {$table['name']}" . PHP_EOL;
+            do {
+                echo "Page: $page" . PHP_EOL;
+                try {
+                    $call = $this->client->get("{$table['uri']}&page={$page}");
+                } catch (GuzzleException $e) {
+                    echo "Download {$table['name']} error: {$e->getMessage()}" . PHP_EOL;
+                    continue;
+                }
+                $content = json_decode($call->getBody()->getContents(), true);
+                $payload = array_merge($payload, $content);
+                $page++;
+            } while (!empty($content));
+            $this->save($table['name'], json_encode($payload));
+        }
         return $this;
     }
 

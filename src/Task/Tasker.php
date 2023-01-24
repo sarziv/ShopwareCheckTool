@@ -4,7 +4,14 @@ namespace ShopwareCheckTool\Task;
 
 use RuntimeException;
 use ShopwareCheckTool\Models\Marketplace;
+use ShopwareCheckTool\Removers\PluginRemoveTask;
 use ShopwareCheckTool\Requests\Shopware;
+use ShopwareCheckTool\TaskDeeper\ImageDeepInvalidTask;
+use ShopwareCheckTool\TaskDeeper\ImageDeepTask;
+use ShopwareCheckTool\TaskDeeper\ImageDuplicateTask;
+use ShopwareCheckTool\TaskDeeper\ProductConfiguratorDuplicateTask;
+use ShopwareCheckTool\TaskDeeper\ShopwareCoversTask;
+use ShopwareCheckTool\TaskDeeper\ShopwareErrorDuplicateProductNumberTask;
 use ShopwareCheckTool\Traits\Timable;
 
 class Tasker
@@ -159,16 +166,17 @@ class Tasker
         return $this;
     }
 
-    public function customRemoveTable(array $payload, Marketplace $marketplace, string $table, string $key = null): Tasker
+    public function remove(Marketplace $marketplace): Tasker
     {
         $this->start(__FUNCTION__);
-        (new CustomPluginRemoveTask($this->shopware))->check($payload, $marketplace, $table, $key);
+        (new PluginRemoveTask($this->shopware))->check($marketplace);
         $this->end(__FUNCTION__);
         return $this;
     }
 
     public function all(): Tasker
     {
+        $this->start(__FUNCTION__);
         (new AttributeTask($this->shopware))->check();
         (new AttributeReworkTask($this->shopware))->check();
         (new CategoryTask($this->shopware))->check();
@@ -179,6 +187,7 @@ class Tasker
         (new TagTask($this->shopware))->check();
         (new ImagesTask($this->shopware))->check();
         (new ProductVisibilityTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
         return $this;
     }
 }

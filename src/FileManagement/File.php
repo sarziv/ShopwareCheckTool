@@ -14,10 +14,10 @@ abstract class File
     private const COMPLETED_FOLDER = '/../Logs/Completed/';
     private string $path = '';
 
-    public function readFile(string $fileName): array
+    public function readFile(string $fileName, bool $withJSON = true): array
     {
         $array = [];
-        $file = "{$this->getFolder()}$fileName.json";
+        $file = "{$this->getFolder()}$fileName" . ($withJSON ? '.json' : '');
         if (file_exists($file)) {
             $array = @json_decode(file_get_contents($file), true) ?? [];
         }
@@ -37,6 +37,11 @@ abstract class File
         }
         file_put_contents($file, json_encode($log, JSON_PRETTY_PRINT));
         echo "{$this->name} completed." . PHP_EOL;
+    }
+
+    public function getFiles(): array
+    {
+        return array_diff(scandir($this->path), array('..', '.'));
     }
 
     protected function getFolder(): string

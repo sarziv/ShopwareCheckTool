@@ -1,10 +1,9 @@
 <?php
 
 
-namespace ShopwareCheckTool\Task;
+namespace ShopwareCheckTool\TaskDeeper;
 
 
-use Illuminate\Support\Collection;
 use ReflectionClass;
 use ShopwareCheckTool\FileManagement\File;
 use ShopwareCheckTool\Requests\Shopware;
@@ -27,7 +26,7 @@ class ProductConfiguratorDuplicateTask extends File
 
     public function check(): void
     {
-        foreach ($this->file['configuration'] as $productConfigurator) {
+        foreach ($this->file['list'] as $productConfigurator) {
             echo $this->name . ': ' . $this->count++ . '/' . $this->total . PHP_EOL;
             foreach ($productConfigurator as $productConfiguratorId) {
                 $resp = @$this->shopware->deleteProductConfiguratorSettingById($productConfiguratorId)['code'] ?: 'error';

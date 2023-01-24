@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ShopwareCheckTool\Task;
+namespace ShopwareCheckTool\TaskDeeper;
 
 
 use Illuminate\Support\Collection;

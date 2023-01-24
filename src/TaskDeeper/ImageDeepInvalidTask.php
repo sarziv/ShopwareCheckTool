@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ShopwareCheckTool\Task;
+namespace ShopwareCheckTool\TaskDeeper;
 
 
 use ReflectionClass;
@@ -35,9 +35,9 @@ class ImageDeepInvalidTask extends File
             'need_to_update' => false
         ];
         $plentymarket = new Plentymarket($marketplace);
-        foreach ($this->file['media'] as $id) {
+        foreach ($this->file['list'] as $id) {
             echo "Reading {$this->name}: $id" . PHP_EOL;
-            sleep(1);
+            sleep(2);
             $resp = $plentymarket->updateVariationImageQueueById($id, $cleanPayload);
             echo "{$this->name}-ID:$id, CODE:{$resp['code']}" . PHP_EOL;
             $this->log[$id] = (string)($resp['code']);

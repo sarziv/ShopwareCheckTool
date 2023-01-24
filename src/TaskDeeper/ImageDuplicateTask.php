@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ShopwareCheckTool\Task;
+namespace ShopwareCheckTool\TaskDeeper;
 
 
 use ReflectionClass;
@@ -23,12 +23,12 @@ class ImageDuplicateTask extends File
         $this->shopware = $shopware;
         $this->useCompletedFolder();
         $this->file = $this->readFile('ImagesTask')['invalid'];
-        $this->total = count($this->file['media']);
+        $this->total = count($this->file['list']);
     }
 
     public function check(): void
     {
-        foreach ($this->file['media'] as $productMedia) {
+        foreach ($this->file['list'] as $productMedia) {
             echo $this->name . ': ' . $this->count++ . '/' . $this->total . PHP_EOL;
             foreach ($productMedia as $mediaId) {
                 $resp = @$this->shopware->deleteProductMediaById($mediaId)['code'] ?: 'error';

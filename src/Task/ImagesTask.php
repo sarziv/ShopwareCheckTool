@@ -18,12 +18,14 @@ class ImagesTask extends File
     private array $invalid = [];
     private int $count = 1;
     private int $total;
+    public const FILE_NAME = 'Images';
+    public const TABLE = 'VariationImageQueue';
 
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->file = Collection::make($this->readFile('Images'))
+        $this->file = Collection::make($this->readFile(self::FILE_NAME))
             ->where('configuration_id', '=', $this->shopware->configuration->getId())
             ->where('is_uploaded', '=', '1')
             ->groupBy('sw_product_id')
@@ -51,7 +53,7 @@ class ImagesTask extends File
             }
         }
         $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['media'] = $this->invalid;
+        $this->log['invalid']['list'] = $this->invalid;
         $this->saveFile($this->log);
     }
 }

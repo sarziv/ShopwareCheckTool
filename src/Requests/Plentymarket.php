@@ -48,10 +48,10 @@ class Plentymarket
         ];
     }
 
-    public function deleteFromPlugin(string $table, string $whereKey, $value): array
+    public function deleteFromPlugin(string $table, $id): array
     {
         try {
-            $call = $this->client->delete("/rest/PlentymarketsShopwareCore/deleteTableRecords?model=$table&whereKey=$whereKey&whereValue=$value");
+            $call = $this->client->delete("/rest/PlentymarketsShopwareCore/deleteTableRecords?model=$table&whereKey=id&whereValue=$id");
         } catch (GuzzleException $e) {
             return ['error' => $e->getMessage()];
         }

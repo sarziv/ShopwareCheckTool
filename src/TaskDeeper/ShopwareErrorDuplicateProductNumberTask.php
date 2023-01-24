@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ShopwareCheckTool\Task;
+namespace ShopwareCheckTool\TaskDeeper;
 
 
 use Illuminate\Support\Collection;
@@ -25,7 +25,6 @@ class ShopwareErrorDuplicateProductNumberTask extends File
             ->whereIn('errors.0.code', 'CONTENT__DUPLICATE_PRODUCT_NUMBER')->pluck('errors.0.meta.parameters.number')
             ->unique()
             ->toArray();
-
     }
 
     public function check(): void

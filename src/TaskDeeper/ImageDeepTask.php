@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ShopwareCheckTool\Task;
+namespace ShopwareCheckTool\TaskDeeper;
 
 
 use Illuminate\Support\Collection;
@@ -52,7 +52,7 @@ class ImageDeepTask extends File
             $this->log[$image['id']]['sw_product_media_id'] = (@$getProductMedia['code'] ?: $getProductMedia['error']);
         }
         $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['media'] = $this->invalid;
+        $this->log['invalid']['list'] = $this->invalid;
         $this->saveFile($this->log);
     }
 }

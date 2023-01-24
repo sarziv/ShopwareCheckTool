@@ -18,7 +18,8 @@ class ProductVisibilityTask extends File
     private array $log = [];
     private int $total;
     private int $count = 1;
-
+    public const FILE_NAME = 'ProductVisibility';
+    public const TABLE = 'ProductVisibility';
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
@@ -33,14 +34,14 @@ class ProductVisibilityTask extends File
     {
         foreach ($this->file as $productVisibility) {
             echo $this->name . ':' . $this->count++ . '/' . $this->total . PHP_EOL;
-            $getProductVisibility = $this->shopware->getProductVisibilityById($productVisibility['sw_visibility_id']);
-            $this->log[$productVisibility['id']]['visibility'] = (@$getProductVisibility['code'] ?: $getProductVisibility['error']);
-            if (@$getProductVisibility['code'] != 200) {
+            $resp = $this->shopware->getProductVisibilityById($productVisibility['sw_visibility_id']);
+            $this->log[$productVisibility['id']] = (@$resp['code'] ?: $resp['error']);
+            if (@$resp['code'] !== 200) {
                 $this->invalid[] = $productVisibility['id'];
             }
         }
         $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['visibility'] = $this->invalid;
+        $this->log['invalid']['list'] = $this->invalid;
         $this->saveFile($this->log);
     }
 }
