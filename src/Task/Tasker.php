@@ -86,6 +86,14 @@ class Tasker
         return $this;
     }
 
+    public function propertyDynamic(): Tasker
+    {
+        $this->start(__FUNCTION__);
+        (new PropertyDynamicTask($this->shopware))->check();
+        $this->end(__FUNCTION__);
+        return $this;
+    }
+
     public function tag(): Tasker
     {
         $this->start(__FUNCTION__);
@@ -184,6 +192,7 @@ class Tasker
         (new ManufacturerTask($this->shopware))->check();
         (new MeasurementTask($this->shopware))->check();
         (new PropertyTask($this->shopware))->check();
+        (new PropertyDynamicTask($this->shopware))->check();
         (new TagTask($this->shopware))->check();
         (new ImagesTask($this->shopware))->check();
         (new ProductVisibilityTask($this->shopware))->check();

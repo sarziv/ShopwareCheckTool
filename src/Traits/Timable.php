@@ -4,6 +4,8 @@
 namespace ShopwareCheckTool\Traits;
 
 
+use ShopwareCheckTool\FileManagement\FileLogger;
+
 trait Timable
 {
     private array $time = [];
@@ -25,9 +27,11 @@ trait Timable
     public function __destruct()
     {
         $timers = [];
+        $logger = new FileLogger();
         foreach ($this->time as $name => $start) {
             $timers[$name] = time() - $start;
+            $logger->newGeneralFileLine( "Tasks: {$name}, Time: " . gmdate('H:i:s', $timers[$name]) . ' seconds');
         }
-        echo "Tasks completed. Time: " . gmdate('H:i:s', array_sum($timers)) . ' seconds' . PHP_EOL;
+        $logger->newGeneralFileLine("Tasks completed. Time: " . gmdate('H:i:s', array_sum($timers)) . ' seconds');
     }
 }

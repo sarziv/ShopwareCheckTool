@@ -18,6 +18,7 @@ use ShopwareCheckTool\Task\ManufacturerTask;
 use ShopwareCheckTool\Task\MeasurementTask;
 use ShopwareCheckTool\Task\ProductConfiguratorTask;
 use ShopwareCheckTool\Task\ProductVisibilityTask;
+use ShopwareCheckTool\Task\PropertyDynamicTask;
 use ShopwareCheckTool\Task\PropertyTask;
 use ShopwareCheckTool\Task\TagTask;
 
@@ -49,7 +50,7 @@ class PluginRemoveTask extends File
                 sleep(1);
                 $resp = $plentymarket->deleteFromPlugin($table, $id);
                 echo "{$this->name}-$table-$id, CODE:{$resp['code']}" . PHP_EOL;
-                $this->log[$table][$id] = 'REMOVED-'.(string)($resp['code']);
+                $this->log[$table][$id] = 'REMOVED-'.($resp['code']);
             }
         }
         $this->saveFile($this->log);
@@ -68,6 +69,7 @@ class PluginRemoveTask extends File
             'ProductConfiguratorTask.json' => ProductConfiguratorTask::TABLE,
             'ProductVisibilityTask.json' => ProductVisibilityTask::TABLE,
             'PropertyTask.json' => PropertyTask::TABLE,
+            'PropertyDynamicTask.json' => PropertyDynamicTask::TABLE,
             'TagTask.json' => TagTask::TABLE
         ];
         return @$list[$file] ?: '';

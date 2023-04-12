@@ -23,20 +23,19 @@ class MeasurementTask extends File
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
         $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
+        $this->clear();
     }
 
     public function check(): void
     {
-        foreach ($this->file as $delivery) {
-            echo "Reading {$this->name}: {$delivery['id']}" . PHP_EOL;
-            $resp = $this->shopware->getUnitById($delivery['sw_unit_id']);
-            $this->log[$delivery['id']] = (@$resp['code'] ?: $resp['error']);
-            if (@$resp['code'] !== 200) {
-                $this->invalid[] = $delivery['id'];
+        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        foreach ($this->file as $measurement) {
+            $resp = $this->shopware->getUnitById($measurement['sw_unit_id']);
+            $this->newFileLineLog(($measurement['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            if (@$resp['code'] === 404) {
+                $this->newFileLine($measurement['id']);
             }
         }
-        $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['list'] = $this->invalid;
-        $this->saveFile($this->log);
+        $this->newFileLineLog('Finished ' . self::FILE_NAME);
     }
 }

@@ -19,6 +19,7 @@ class DownloadMarketplace
     private const MEASUREMENT = ['uri' => self::PREFIX . 'MeasurementUnitMatch', 'name' => 'Measurement'];
     private const DELIVERY = ['uri' => self::PREFIX . 'DeliveryTimeMatch', 'name' => 'Delivery'];
     private const PROPERTY = ['uri' => self::PREFIX . 'PropertyMatch', 'name' => 'Property'];
+    private const PROPERTY_DYNAMIC = ['uri' => self::PREFIX . 'PropertyDynamicMatch', 'name' => 'PropertyDynamic'];
     private const VARIATION_IMAGE_QUEUE = ['uri' => self::PREFIX . 'VariationImageQueue', 'name' => 'Images'];
     private const TAG = ['uri' => self::PREFIX . 'TagMatching', 'name' => 'Tag'];
     private const PRODUCT_CONFIGURATION = ['uri' => self::PREFIX . 'ProductConfigurator', 'name' => 'ProductConfigurator'];
@@ -36,6 +37,7 @@ class DownloadMarketplace
         self::MEASUREMENT,
         self::DELIVERY,
         self::PROPERTY,
+        self::PROPERTY_DYNAMIC,
         self::TAG,
         self::PRODUCT_CONFIGURATION,
         self::PRODUCT_VISIBILITY,
@@ -111,7 +113,8 @@ class DownloadMarketplace
             return $this;
         }
         foreach (self::LIST_PAGINATE as $table) {
-            $page = 1;
+            $page = 0;
+            $stop = null;
             $payload = [];
             echo "Downloading: {$table['name']}" . PHP_EOL;
             do {
@@ -123,6 +126,10 @@ class DownloadMarketplace
                     continue;
                 }
                 $content = json_decode($call->getBody()->getContents(), true);
+                if($stop === @$content[0]['id']){
+                    break;
+                }
+                $stop = $content[0]['id'];
                 $payload = array_merge($payload, $content);
                 $page++;
             } while (!empty($content));
