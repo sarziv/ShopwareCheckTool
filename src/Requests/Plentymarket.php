@@ -40,7 +40,7 @@ class Plentymarket
         try {
             $call = $this->client->post("/rest/PlentymarketsShopwareCore/updateTableRecords?model=VariationImageQueue&whereKey=id&whereValue=$id", [RequestOptions::FORM_PARAMS => $payload]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(),'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),

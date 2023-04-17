@@ -15,34 +15,34 @@ class ImageDeepInvalidTask extends File
     protected string $name;
     protected Shopware $shopware;
     private array $file;
-    private array $log = [];
+    public const FILE_NAME = 'ImageDeepTask';
+    private const CLEAN_PAYLOAD = [
+        'sw_media_id' => '',
+        'sw_product_media_id' => '',
+        'is_uploaded' => false,
+        'need_to_delete' => false,
+        'need_to_update' => false
+    ];
 
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
         $this->useCompletedFolder();
-        $this->file = $this->readFile('ImageDeepTask')['invalid'];
+        $this->file = $this->readFile(self::FILE_NAME)['invalid'];
         $this->clear();
     }
 
     public function check(Marketplace $marketplace): void
     {
-        $cleanPayload = [
-            'sw_media_id' => '',
-            'sw_product_media_id' => '',
-            'is_uploaded' => false,
-            'need_to_delete' => false,
-            'need_to_update' => false
-        ];
-        $plentymarket = new Plentymarket($marketplace);
+        $this->newGeneralFileLine('Started: ' . self::FILE_NAME);
+        $pMarketplace = new Plentymarket($marketplace);
         foreach ($this->file['list'] as $id) {
             echo "Reading {$this->name}: $id" . PHP_EOL;
             sleep(2);
-            $resp = $plentymarket->updateVariationImageQueueById($id, $cleanPayload);
-            echo "{$this->name}-ID:$id, CODE:{$resp['code']}" . PHP_EOL;
-            $this->log[$id] = (string)($resp['code']);
+            $resp = $pMarketplace->updateVariationImageQueueById($id, self::CLEAN_PAYLOAD);
+            $this->newFileLineLog("$id: CODE:{$resp['code']}");
         }
-        $this->saveFile($this->log);
+        $this->newGeneralFileLine('Finished: ' . self::FILE_NAME);
     }
 }
