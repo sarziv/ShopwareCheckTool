@@ -30,8 +30,8 @@ class CategoryTask extends File
         foreach ($this->file as $category) {
             echo "Reading {$this->name}: {$category['id']}" . PHP_EOL;
             $resp = $this->shopware->getCategoryById($category['sw_category_id']);
-            $this->newFileLineLog(($category['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
-            if (@$resp['code'] === 404) {
+            $this->newFileLineLog(($category['id']) . ': ' . ($resp['code'] ?: $resp['error']));
+            if ($resp['code'] === 404) {
                 $this->newFileLine($category['id']);
             }
         }

@@ -34,7 +34,7 @@ class ImagesTask extends File
         $this->newFileLineLog('Started: ' . self::FILE_NAME);
         foreach ($this->file as $productId => $imageList) {
             $resp = $this->shopware->getMediaByProductId($productId);
-            $this->newFileLineLog(($productId) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newFileLineLog(($productId) . ': ' . ($resp['code'] ?: $resp['error']));
             if (array_key_exists('error', $resp)) {
                 continue;
             }

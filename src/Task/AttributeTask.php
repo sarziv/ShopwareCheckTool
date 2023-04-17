@@ -29,10 +29,10 @@ class AttributeTask extends File
         $this->newFileLineLog('Started: ' . self::FILE_NAME);
         foreach ($this->file as $attribute) {
             $resp = $this->shopware->getPropertyGroupById($attribute['sw_property_id']);
-            $this->newFileLineLog(($attribute['sw_property_id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newFileLineLog(($attribute['sw_property_id']) . ': ' . ($resp['code'] ?: $resp['error']));
             foreach ($attribute['sw_property_options'] as $sw_property_option) {
                 $resp = $this->shopware->getPropertyGroupOptionById($sw_property_option);
-                if (@$resp['code'] === 404) {
+                if ($resp['code'] === 404) {
                     $this->newFileLine($sw_property_option);
                 }
             }

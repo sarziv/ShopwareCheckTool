@@ -58,6 +58,7 @@ class ImageDeepTask extends File
                 $this->newFileLine($image['id']);
                 continue;
             }
+
             $getMediaThumbnailsById = $this->shopware->getMediaThumbnailsById($image['sw_media_id']);
             $this->newFileLineLog("SW-MEDIA-THUMBNAIL-{$image['id']}: " . ($getMediaThumbnailsById['error'] ?: $getMediaThumbnailsById['code']));
             if (empty($getMediaThumbnailsById['response']['data'])) {

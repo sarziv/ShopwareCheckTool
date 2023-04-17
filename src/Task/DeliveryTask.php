@@ -32,8 +32,8 @@ class DeliveryTask extends File
             echo "Reading {$this->name}: {$delivery['id']}" . PHP_EOL;
             $resp = $this->shopware->getDeliveryById($delivery['sw_delivery_date_id']);
 
-            $this->newFileLineLog(($delivery['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
-            if (@$resp['code'] === 404) {
+            $this->newFileLineLog(($delivery['id']) . ': ' . ($resp['code'] ?: $resp['error']));
+            if ($resp['code'] === 404) {
                 $this->newFileLine($delivery['id']);
             }
         }

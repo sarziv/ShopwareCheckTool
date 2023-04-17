@@ -26,8 +26,22 @@ class PluginRemoveTask extends File
 {
     protected string $name;
     protected Shopware $shopware;
-    private array $log = [];
     private array $tasks;
+    public const FILE_NAME = 'PluginRemoveTask';
+    private const LIST = [
+        'AttributeReworkTask.json' => AttributeReworkTask::TABLE,
+        'AttributeTask.json' => AttributeTask::TABLE,
+        'CategoryTask.json' => CategoryTask::TABLE,
+        'DeliveryTask.json' => DeliveryTask::TABLE,
+        'ImagesTask.json' => ImagesTask::TABLE,
+        'ManufacturerTask.json' => ManufacturerTask::TABLE,
+        'MeasurementTask.json' => MeasurementTask::TABLE,
+        'ProductConfiguratorTask.json' => ProductConfiguratorTask::TABLE,
+        'ProductVisibilityTask.json' => ProductVisibilityTask::TABLE,
+        'PropertyTask.json' => PropertyTask::TABLE,
+        'PropertyDynamicTask.json' => PropertyDynamicTask::TABLE,
+        'TagTask.json' => TagTask::TABLE
+    ];
 
     public function __construct(Shopware $shopware)
     {
@@ -39,39 +53,19 @@ class PluginRemoveTask extends File
 
     public function check(Marketplace $marketplace): void
     {
-        $plentymarket = new Plentymarket($marketplace);
+        $this->newGeneralFileLine('Started: ' . self::FILE_NAME);
+        $pMarketplace = new Plentymarket($marketplace);
         foreach ($this->tasks as $file) {
-            $table = self::getTable($file);
-            if(!$table){
+            $table = self::LIST[$file];
+            if (!$table) {
                 continue;
             }
             foreach ($this->readFile($file, false)['invalid']['list'] as $id) {
-                echo "Reading {$this->name}: $id" . PHP_EOL;
-                sleep(1);
-                $resp = $plentymarket->deleteFromPlugin($table, $id);
-                echo "{$this->name}-$table-$id, CODE:{$resp['code']}" . PHP_EOL;
-                $this->log[$table][$id] = 'REMOVED-'.($resp['code']);
+                sleep(2);
+                $resp = $pMarketplace->deleteFromPlugin($table, $id);
+                $this->newFileLineLog("{$this->name}-$table-$id: " . ($resp['error'] ?: $resp['code']));
             }
         }
-        $this->saveFile($this->log);
-    }
-
-    private static function getTable($file): string
-    {
-        $list = [
-            'AttributeReworkTask.json' => AttributeReworkTask::TABLE,
-            'AttributeTask.json' => AttributeTask::TABLE,
-            'CategoryTask.json' => CategoryTask::TABLE,
-            'DeliveryTask.json' => DeliveryTask::TABLE,
-            'ImagesTask.json' => ImagesTask::TABLE,
-            'ManufacturerTask.json' => ManufacturerTask::TABLE,
-            'MeasurementTask.json' => MeasurementTask::TABLE,
-            'ProductConfiguratorTask.json' => ProductConfiguratorTask::TABLE,
-            'ProductVisibilityTask.json' => ProductVisibilityTask::TABLE,
-            'PropertyTask.json' => PropertyTask::TABLE,
-            'PropertyDynamicTask.json' => PropertyDynamicTask::TABLE,
-            'TagTask.json' => TagTask::TABLE
-        ];
-        return @$list[$file] ?: '';
+        $this->newGeneralFileLine('Started: ' . self::FILE_NAME);
     }
 }

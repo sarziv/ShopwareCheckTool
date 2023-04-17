@@ -28,8 +28,8 @@ class AttributeReworkTask extends File
         $this->newFileLineLog('Started' . self::FILE_NAME);
         foreach ($this->file as $attribute) {
             $resp = $this->shopware->getPropertyGroupOptionById($attribute['sw_property_option_id']);
-            $this->newFileLineLog(($attribute['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
-            if (@$resp['code'] === 404) {
+            $this->newFileLineLog(($attribute['id']) . ': ' . ($resp['code'] ?: $resp['error']));
+            if ($resp['code'] === 404) {
                 $this->newFileLine($attribute['id']);
             }
         }

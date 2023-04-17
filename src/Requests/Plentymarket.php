@@ -53,7 +53,7 @@ class Plentymarket
         try {
             $call = $this->client->delete("/rest/PlentymarketsShopwareCore/deleteTableRecords?model=$table&whereKey=id&whereValue=$id");
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(),'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
