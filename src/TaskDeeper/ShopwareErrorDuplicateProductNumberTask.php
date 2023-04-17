@@ -25,6 +25,7 @@ class ShopwareErrorDuplicateProductNumberTask extends File
             ->whereIn('errors.0.code', 'CONTENT__DUPLICATE_PRODUCT_NUMBER')->pluck('errors.0.meta.parameters.number')
             ->unique()
             ->toArray();
+        $this->clear();
     }
 
     public function check(): void
@@ -34,12 +35,12 @@ class ShopwareErrorDuplicateProductNumberTask extends File
             $postProductSearch = $this->shopware->postProductSearch($productNumber);
             $this->newFileLineLog("{$productNumber}:{$postProductSearch['code']}");
             if ($postProductSearch['code'] === 200 || $postProductSearch['response']['meta']['total'] <= 0) {
-               $this->newFileLineLog("SKIP-CHECK:$productNumber, CODE:{$postProductSearch['code']}, TOTAL: {$postProductSearch['response']['meta']['total']}");
+                $this->newFileLineLog("SKIP-CHECK:$productNumber, CODE:{$postProductSearch['code']}, TOTAL: {$postProductSearch['response']['meta']['total']}");
                 continue;
             }
             $deleteProductById = $this->shopware->deleteProductById($postProductSearch['response']['data'][0]['id']);
             $this->newFileLineLog("REMOVE:$productNumber, CODE:{$deleteProductById['code']}");
         }
-         $this->newGeneralFileLine('Finished ' . self::FILE_NAME);
+        $this->newGeneralFileLine('Finished ' . self::FILE_NAME);
     }
 }

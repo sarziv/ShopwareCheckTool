@@ -24,6 +24,7 @@ class ImageDeepTask extends File
             ->where('configuration_id', '=', $this->shopware->configuration->getId())
             ->where('is_uploaded', '=', '1')
             ->toArray();
+        $this->clear();
     }
 
     public function check(): void

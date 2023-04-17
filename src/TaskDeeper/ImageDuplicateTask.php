@@ -21,6 +21,7 @@ class ImageDuplicateTask extends File
         $this->shopware = $shopware;
         $this->useCompletedFolder();
         $this->file = $this->readFile(self::FILE_NAME)['invalid'];
+        $this->clear();
     }
 
     public function check(): void

@@ -23,6 +23,7 @@ class ImageDeepInvalidTask extends File
         $this->shopware = $shopware;
         $this->useCompletedFolder();
         $this->file = $this->readFile('ImageDeepTask')['invalid'];
+        $this->clear();
     }
 
     public function check(Marketplace $marketplace): void

@@ -20,6 +20,7 @@ class ProductConfiguratorDuplicateTask extends File
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
         $this->file = $this->readFile(self::FILE_NAME)['invalid'];
+        $this->clear();
     }
 
     public function check(): void
