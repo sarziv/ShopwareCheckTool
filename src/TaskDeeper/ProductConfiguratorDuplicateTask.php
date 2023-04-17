@@ -12,27 +12,25 @@ class ProductConfiguratorDuplicateTask extends File
 {
     protected string $name;
     protected Shopware $shopware;
-    private int $count = 1;
     private array $file;
-    private int $total;
+    public const FILE_NAME = 'ProductConfiguratorTask';
 
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->file = $this->readFile('ProductConfiguratorTask')['invalid'];
-        $this->total = count($this->file['configuration']);
+        $this->file = $this->readFile(self::FILE_NAME)['invalid'];
     }
 
     public function check(): void
     {
+        $this->newGeneralFileLine('Started: ' . self::FILE_NAME);
         foreach ($this->file['list'] as $productConfigurator) {
-            echo $this->name . ': ' . $this->count++ . '/' . $this->total . PHP_EOL;
             foreach ($productConfigurator as $productConfiguratorId) {
-                $resp = @$this->shopware->deleteProductConfiguratorSettingById($productConfiguratorId)['code'] ?: 'error';
-                echo "$productConfiguratorId :{$resp}" . PHP_EOL;
+                $resp = @$this->shopware->deleteProductConfiguratorSettingById($productConfiguratorId)['code'];
+                $this->newFileLineLog("$productConfiguratorId :{$resp['code']}");
             }
-            die();
         }
+        $this->newGeneralFileLine('Finished ' . self::FILE_NAME);
     }
 }

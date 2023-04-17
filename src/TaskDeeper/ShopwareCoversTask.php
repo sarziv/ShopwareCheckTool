@@ -50,7 +50,7 @@ class ShopwareCoversTask extends File
                 continue;
             }
             $sync = $this->shopware->updateProductCover($productId, $image['sw_product_media_id']);
-            $this->newFileLineLog($productId . ': ' . 'Trying to added cover. CODE: ' . $sync['code'] ?: 0);
+            $this->newFileLineLog($productId . ': ' . 'Trying to added cover. CODE: ' . $sync['code']);
         }
     }
 }

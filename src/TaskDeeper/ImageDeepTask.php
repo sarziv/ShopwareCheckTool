@@ -14,8 +14,7 @@ class ImageDeepTask extends File
     protected string $name;
     protected Shopware $shopware;
     private array $file;
-    private array $log = [];
-    private array $invalid = [];
+    public const FILE_NAME = 'Images';
 
     public function __construct(Shopware $shopware)
     {
@@ -29,44 +28,42 @@ class ImageDeepTask extends File
 
     public function check(): void
     {
+        $this->newGeneralFileLine('Started: ' . self::FILE_NAME);
         foreach ($this->file as $image) {
-            echo "Reading {$this->name}: {$image['id']}" . PHP_EOL;
             $getProduct = $this->shopware->getProductById($image['sw_product_id']);
-            if (@$getProduct['code'] !== 200) {
-                $this->invalid[] = $image['id'];
-                continue;
-            }
-            $this->log[$image['id']]['sw_product_id'] = (@$getProduct['code'] ?: $getProduct['error']);
-            if (array_key_exists('error', $getProduct)) {
-                $this->invalid[] = $image['id'];
-                continue;
-            }
-
-            $getMedia = $this->shopware->getMediaById($image['sw_media_id']);
-            $this->log[$image['id']]['sw_media_id'] = (@$getMedia['code'] ?: $getMedia['error']);
-            if (array_key_exists('error', $getMedia)) {
-                $this->invalid[] = $image['id'];
-                continue;
-            }
-
-            $this->log[$image['id']]['hasFile'] = ($getMedia['response']['data']['attributes']['hasFile'] ?: false);
-            if (!$getMedia['response']['data']['attributes']['hasFile']) {
-                $this->invalid[] = $image['id'];
-                continue;
-            }
-
-            $getMediaThumbnailsById = $this->shopware->getMediaThumbnailsById($image['sw_media_id']);
-            if (empty($getMediaThumbnailsById['response']['data'])) {
-                $this->log[$image['id']]['sw_media_thumbnails'] = (@$getMediaThumbnailsById['response'] ?: $getMediaThumbnailsById['error']);
-                $this->invalid[] = $image['id'];
+            $this->newFileLineLog("SW-PRODUCT-{$image['id']}: " . ($getProduct['error'] ?: $getProduct['code']));
+            if ($getProduct['code'] === 404) {
+                $this->newFileLine($image['id']);
                 continue;
             }
 
             $getProductMedia = $this->shopware->getProductMediaById($image['sw_product_media_id']);
-            $this->log[$image['id']]['sw_product_media_id'] = (@$getProductMedia['code'] ?: $getProductMedia['error']);
+            $this->newFileLineLog("SW-PRODUCT-MEDIA-{$image['id']}: " . ($getProductMedia['error'] ?: $getProductMedia['code']));
+            if ($getProductMedia['code'] === 404) {
+                $this->newFileLine($image['id']);
+                continue;
+            }
+
+            $getMedia = $this->shopware->getMediaById($image['sw_media_id']);
+            $this->newFileLineLog("SW-MEDIA-{$image['id']}: " . ($getMedia['error'] ?: $getMedia['code']));
+            if ($getMedia['code'] === 404) {
+                $this->newFileLine($image['id']);
+                continue;
+            }
+
+            $isFile = ($getMedia['response']['data']['attributes']['hasFile'] ?: false);
+            $this->newFileLineLog("SW-FILE-{$image['id']}: " . ($getProduct['error'] ?: $getProduct['code']));
+            if (!$isFile) {
+                $this->newFileLine($image['id']);
+                continue;
+            }
+            $getMediaThumbnailsById = $this->shopware->getMediaThumbnailsById($image['sw_media_id']);
+            $this->newFileLineLog("SW-MEDIA-THUMBNAIL-{$image['id']}: " . ($getMediaThumbnailsById['error'] ?: $getMediaThumbnailsById['code']));
+            if (empty($getMediaThumbnailsById['response']['data'])) {
+                $this->newFileLine($image['id']);
+                continue;
+            }
         }
-        $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['list'] = $this->invalid;
-        $this->saveFile($this->log);
+        $this->newGeneralFileLine('Finished: ' . self::FILE_NAME);
     }
 }
