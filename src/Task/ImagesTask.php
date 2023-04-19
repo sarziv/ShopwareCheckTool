@@ -14,10 +14,6 @@ class ImagesTask extends File
     protected string $name;
     protected Shopware $shopware;
     private array $file;
-    private array $log = [];
-    private array $invalid = [];
-    private int $count = 1;
-    private int $total;
     public const FILE_NAME = 'Images';
     public const TABLE = 'VariationImageQueue';
 
@@ -30,30 +26,27 @@ class ImagesTask extends File
             ->where('is_uploaded', '=', '1')
             ->groupBy('sw_product_id')
             ->toArray();
-        $this->total = count($this->file);
+        $this->clear();
     }
 
     public function check(): void
     {
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $productId => $imageList) {
-            echo $this->name . ':' . $this->count++ . '/' . $this->total . PHP_EOL;
-            $getProductMedia = $this->shopware->getMediaByProductId($productId);
-            $this->log[$productId]['product'] = (@$getProductMedia['code'] ?: $getProductMedia['error']);
-            if (array_key_exists('error', $getProductMedia)) {
+            $resp = $this->shopware->getMediaByProductId($productId);
+            $this->newLogLine(($productId) . ': ' . (@$resp['error'] ?: $resp['code']));
+            if (array_key_exists('error', $resp)) {
                 continue;
             }
-            $mediaCollection = Collection::make($getProductMedia['response']['data']);
+            $mediaCollection = Collection::make($resp['response']['data']);
             $imageListCollection = Collection::make($imageList);
             foreach ($mediaCollection as $media) {
                 $imageFound = $imageListCollection->where('sw_product_media_id', '=', $media['id'])->first();
-                $this->log[$productId]['media'][$media['id']] = (@(int)$imageFound['variation_id'] ?: 'Invalid media');
                 if (empty($imageFound['variation_id'])) {
-                    $this->invalid[$productId][] = $media['id'];
+                    $this->newInvalidLine($media['id']);
                 }
             }
         }
-        $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['list'] = $this->invalid;
-        $this->saveFile($this->log);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

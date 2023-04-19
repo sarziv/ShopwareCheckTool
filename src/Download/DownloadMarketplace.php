@@ -8,50 +8,53 @@ use GuzzleHttp\RequestOptions;
 use ShopwareCheckTool\Models\Marketplace;
 
 
-class DownloadMarketplace
+class DownloadMarketplace extends Download
 {
     private const PREFIX = '/rest/PlentymarketsShopwareCore/test?model=';
-    private const CONFIGURATION = ['uri' => self::PREFIX . 'Configuration', 'name' => 'Configuration'];
-    private const ATTRIBUTE = ['uri' => self::PREFIX . 'AttributeMatch', 'name' => 'Attribute'];
-    private const ATTRIBUTE_REWORK = ['uri' => self::PREFIX . 'AttributeReworkMatch', 'name' => 'AttributeRework'];
-    private const CATEGORY = ['uri' => self::PREFIX . 'CategoryMatch', 'name' => 'Category'];
-    private const MANUFACTURER = ['uri' => self::PREFIX . 'ManufacturerMatch', 'name' => 'Manufacturer'];
-    private const MEASUREMENT = ['uri' => self::PREFIX . 'MeasurementUnitMatch', 'name' => 'Measurement'];
-    private const DELIVERY = ['uri' => self::PREFIX . 'DeliveryTimeMatch', 'name' => 'Delivery'];
-    private const PROPERTY = ['uri' => self::PREFIX . 'PropertyMatch', 'name' => 'Property'];
-    private const VARIATION_IMAGE_QUEUE = ['uri' => self::PREFIX . 'VariationImageQueue', 'name' => 'Images'];
-    private const TAG = ['uri' => self::PREFIX . 'TagMatching', 'name' => 'Tag'];
-    private const PRODUCT_CONFIGURATION = ['uri' => self::PREFIX . 'ProductConfigurator', 'name' => 'ProductConfigurator'];
-    private const PRODUCT_VISIBILITY = ['uri' => self::PREFIX . 'ProductVisibility', 'name' => 'ProductVisibility'];
-    private const SHOPWARE_ERRORS = ['uri' => self::PREFIX . 'ShopwareError', 'name' => 'ShopwareError'];
-    private const REFERRERS = ['uri' => self::PREFIX . 'Referrer', 'name' => 'Referrer'];
-    private bool $disable = false;
+    private const CONFIGURATION_URL = ['uri' => self::PREFIX . 'Configuration', 'name' => Download::CONFIGURATION];
+    private const ATTRIBUTE_URL = ['uri' => self::PREFIX . 'AttributeMatch', 'name' => Download::ATTRIBUTE];
+    private const ATTRIBUTE_REWORK_URL = ['uri' => self::PREFIX . 'AttributeReworkMatch', 'name' => Download::ATTRIBUTE_REWORK];
+    private const CATEGORY_URL = ['uri' => self::PREFIX . 'CategoryMatch', 'name' => Download::CATEGORY];
+    private const MANUFACTURER_URL = ['uri' => self::PREFIX . 'ManufacturerMatch', 'name' => Download::MANUFACTURER];
+    private const MEASUREMENT_URL = ['uri' => self::PREFIX . 'MeasurementUnitMatch', 'name' => Download::MEASUREMENT];
+    private const DELIVERY_URL = ['uri' => self::PREFIX . 'DeliveryTimeMatch', 'name' => Download::DELIVERY];
+    private const PROPERTY_URL = ['uri' => self::PREFIX . 'PropertyMatch', 'name' => Download::PROPERTY];
+    private const PROPERTY_DYNAMIC_URL = ['uri' => self::PREFIX . 'PropertyDynamicMatch', 'name' => Download::PROPERTY_DYNAMIC];
+    private const VARIATION_IMAGE_QUEUE_URL = ['uri' => self::PREFIX . 'VariationImageQueue', 'name' => Download::IMAGES];
+    private const TAG_URL = ['uri' => self::PREFIX . 'TagMatching', 'name' => Download::TAG];
+    private const PRODUCT_CONFIGURATION_URL = ['uri' => self::PREFIX . 'ProductConfigurator', 'name' => Download::PRODUCT_CONFIGURATION];
+    private const PRODUCT_VISIBILITY_URL = ['uri' => self::PREFIX . 'ProductVisibility', 'name' => Download::PRODUCT_VISIBILITY];
+    private const SHOPWARE_ERROR_URL = ['uri' => self::PREFIX . 'ShopwareError', 'name' => Download::SHOPWARE_ERROR];
+    private const REFERRERS_URL = ['uri' => self::PREFIX . 'Referrer', 'name' => Download::REFERRER];
 
     private const LIST = [
-        self::CONFIGURATION,
-        self::ATTRIBUTE,
-        self::ATTRIBUTE_REWORK,
-        self::CATEGORY,
-        self::MANUFACTURER,
-        self::MEASUREMENT,
-        self::DELIVERY,
-        self::PROPERTY,
-        self::TAG,
-        self::PRODUCT_CONFIGURATION,
-        self::PRODUCT_VISIBILITY,
-        self::SHOPWARE_ERRORS,
-        self::REFERRERS
+        self::CONFIGURATION_URL,
+        self::ATTRIBUTE_URL,
+        self::ATTRIBUTE_REWORK_URL,
+        self::CATEGORY_URL,
+        self::MANUFACTURER_URL,
+        self::MEASUREMENT_URL,
+        self::DELIVERY_URL,
+        self::PROPERTY_URL,
+        self::PROPERTY_DYNAMIC_URL,
+        self::TAG_URL,
+        self::PRODUCT_CONFIGURATION_URL,
+        self::PRODUCT_VISIBILITY_URL,
+        self::SHOPWARE_ERROR_URL,
+        self::REFERRERS_URL
     ];
     private const LIST_PAGINATE = [
-        self::VARIATION_IMAGE_QUEUE
+        self::VARIATION_IMAGE_QUEUE_URL
     ];
 
     private Marketplace $marketplace;
     private Client $client;
+    private bool $download;
 
-    public function __construct(Marketplace $marketplace)
+    public function __construct(Marketplace $marketplace, bool $download = true)
     {
         $this->marketplace = $marketplace;
+        $this->download = $download;
 
         $this->client = new Client(['base_uri' => $this->marketplace->getDomain(), RequestOptions::HEADERS => [
             'Authorization' => 'Bearer ' . $this->marketplace->getToken(),
@@ -62,64 +65,50 @@ class DownloadMarketplace
     /**
      * @return DownloadMarketplace
      */
-    public function disable(): DownloadMarketplace
-    {
-        $this->disable = false;
-        return $this;
-    }
-
-    /**
-     * @return DownloadMarketplace
-     */
-    public function enable(): DownloadMarketplace
-    {
-        $this->disable = true;
-        return $this;
-    }
-
-    /**
-     * @return DownloadMarketplace
-     */
     public function download(): DownloadMarketplace
     {
-        if (!$this->disable) {
-            echo 'Downloading disabled.' . PHP_EOL;
+        if (!$this->download) {
+            $this->newGeneralLine("Downloading disabled.");
             return $this;
         }
-        echo "Downloading started: '{$this->marketplace->getDomain()}'" . PHP_EOL;
+        $this->newGeneralLine("Downloading started: {$this->marketplace->getDomain()}");
+        $this->downloadList();
+        $this->downloadListPaginate();
+        $this->newGeneralLine("Downloading finished.");
+
+        return $this;
+    }
+
+    private function downloadList(): void
+    {
         foreach (self::LIST as $table) {
-            echo "Downloading: {$table['name']}" . PHP_EOL;
+            $this->newGeneralLine("Downloading: {$table['name']}");
             try {
                 $call = $this->client->get($table['uri']);
             } catch (GuzzleException $e) {
-                echo "Download {$table['name']} error: {$e->getMessage()}" . PHP_EOL;
+                $this->newGeneralLine("GuzzleException: {$e->getMessage()}");
                 continue;
             }
             $this->save($table['name'], $call->getBody()->getContents());
         }
-        $this->downloadPaginate();
-        echo 'Downloading finished.' . PHP_EOL;
-        return $this;
     }
 
+    //TODO Improve pagination
     /**
-     * @return DownloadMarketplace
+     * @return void
      */
-    public function downloadPaginate(): DownloadMarketplace
+    private function downloadListPaginate(): void
     {
-        if (!$this->disable) {
-            return $this;
-        }
         foreach (self::LIST_PAGINATE as $table) {
-            $page = 1;
+            $page = 0;
             $payload = [];
-            echo "Downloading: {$table['name']}" . PHP_EOL;
+            $this->newGeneralLine("Downloading paginated: {$table['name']}");
             do {
-                echo "Page: $page" . PHP_EOL;
+                $this->newGeneralLine("Page: $page");
                 try {
                     $call = $this->client->get("{$table['uri']}&page={$page}");
                 } catch (GuzzleException $e) {
-                    echo "Download {$table['name']} error: {$e->getMessage()}" . PHP_EOL;
+                    $this->newGeneralLine("GuzzleException: {$e->getMessage()}");
                     continue;
                 }
                 $content = json_decode($call->getBody()->getContents(), true);
@@ -128,21 +117,5 @@ class DownloadMarketplace
             } while (!empty($content));
             $this->save($table['name'], json_encode($payload));
         }
-        return $this;
-    }
-
-    private function save(string $name, string $json): void
-    {
-        $dir = __DIR__ . "/../Logs/Downloaded";
-        $file = "$dir/$name.json";
-
-        if (!file_exists($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
-        }
-
-        if (file_exists($file)) {
-            unlink($file);
-        }
-        file_put_contents($file, $json);
     }
 }

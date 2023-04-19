@@ -13,9 +13,7 @@ class ManufacturerTask extends File
 {
     protected string $name;
     protected Shopware $shopware;
-    private array $invalid = [];
     private array $file;
-    private array $log = [];
     public const FILE_NAME = 'Manufacturer';
     public const TABLE = 'ManufacturerMatch';
     public function __construct(Shopware $shopware)
@@ -23,20 +21,19 @@ class ManufacturerTask extends File
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
         $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
+        $this->clear();
     }
 
     public function check(): void
     {
-        foreach ($this->file as $delivery) {
-            echo "Reading {$this->name}: {$delivery['id']}" . PHP_EOL;
-            $resp = $this->shopware->getManufacturerById($delivery['sw_manufacturer_id']);
-            $this->log[$delivery['id']] = (@$resp['code'] ?: $resp['error']);
-            if (@$resp['code'] !== 200) {
-                $this->invalid[] = $delivery['id'];
+        $this->newLogLine('Started ' . self::FILE_NAME);
+        foreach ($this->file as $manufacturer) {
+            $resp = $this->shopware->getManufacturerById($manufacturer['sw_manufacturer_id']);
+            $this->newLogLine(($manufacturer['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            if (@$resp['code'] === 404) {
+                $this->newInvalidLine($manufacturer['id']);
             }
         }
-        $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['list'] = $this->invalid;
-        $this->saveFile($this->log);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

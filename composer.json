@@ -1,10 +1,12 @@
 {
+  "name": "sarziv/clean-tool",
   "autoload": {
     "psr-4": {
       "ShopwareCheckTool\\": "src/"
     }
   },
   "require": {
+    "php": ">=8.0.0",
     "guzzlehttp/guzzle": "^7.4",
     "illuminate/collections": "^8.83"
   },

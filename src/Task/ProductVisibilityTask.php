@@ -14,10 +14,6 @@ class ProductVisibilityTask extends File
     protected string $name;
     protected Shopware $shopware;
     private array $file;
-    private array $invalid = [];
-    private array $log = [];
-    private int $total;
-    private int $count = 1;
     public const FILE_NAME = 'ProductVisibility';
     public const TABLE = 'ProductVisibility';
     public function __construct(Shopware $shopware)
@@ -27,21 +23,19 @@ class ProductVisibilityTask extends File
         $this->file = Collection::make($this->readFile('ProductVisibility'))
             ->where('configuration_id', '=', $this->shopware->configuration->getId())
             ->toArray();
-        $this->total = count($this->file);
+        $this->clear();
     }
 
     public function check(): void
     {
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $productVisibility) {
-            echo $this->name . ':' . $this->count++ . '/' . $this->total . PHP_EOL;
             $resp = $this->shopware->getProductVisibilityById($productVisibility['sw_visibility_id']);
-            $this->log[$productVisibility['id']] = (@$resp['code'] ?: $resp['error']);
-            if (@$resp['code'] !== 200) {
-                $this->invalid[] = $productVisibility['id'];
+            $this->newLogLine(($productVisibility['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            if (@$resp['code'] === 404) {
+                $this->newInvalidLine($productVisibility['id']);
             }
         }
-        $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['list'] = $this->invalid;
-        $this->saveFile($this->log);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

@@ -15,12 +15,9 @@ class ProductConfiguratorTask extends File
     protected Shopware $shopware;
     private array $file;
     private array $attribute;
-    private array $log = [];
-    private array $invalid = [];
-    private int $total;
-    private int $count = 1;
     public const FILE_NAME = 'ProductConfigurator';
     public const TABLE = 'ProductConfigurator';
+
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
@@ -35,16 +32,15 @@ class ProductConfiguratorTask extends File
             ->where('configuration_id', '=', $this->shopware->configuration->getId())
             ->pluck('sw_property_option_id')
             ->toArray();
-
-        $this->total = count($this->file);
+        $this->clear();
     }
 
     public function check(): void
     {
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $productId => $productConfigurator) {
-            echo $this->name . ':' . $this->count++ . '/' . $this->total . PHP_EOL;
             $getProductConfigurator = $this->shopware->getConfigurationSettingByProductId($productId);
-            $this->log[$productId]['product'] = (@$getProductConfigurator['code'] ?: $getProductConfigurator['error']);
+            $this->newLogLine($productId . ': ' . (@$getProductConfigurator['code'] ?: $getProductConfigurator['error']));
             if (array_key_exists('error', $getProductConfigurator)) {
                 continue;
             }
@@ -52,28 +48,22 @@ class ProductConfiguratorTask extends File
             $collection = Collection::make($productConfigurator);
             foreach ($configurators as $configurator) {
                 $found = $collection->where('sw_product_configurator_id', '=', $configurator['id'])->first();
-                $this->log[$productId]['configurators'][$configurator['id']] = (@(int)$found['id'] ? 'Found' : 'Invalid');
+                $this->newLogLine(($productId . '-' . $configurator['id']) . ': ' . ((int)$found['id'] ? 'Found' : 'Invalid'));
                 if (empty($found['id'])) {
-                    $this->invalid[$productId]['configurator'][] = $configurator['id'];
+                    $this->newInvalidLine($configurator['id']);
                 }
             }
             $getProductOptions = $this->shopware->getProductOptionsById($productId);
-            $this->log[$productId]['product'] = (@$getProductOptions['code'] ?: $getProductOptions['error']);
+            $this->newLogLine($productConfigurator['id'] . (@$getProductOptions['error'] ?: $getProductOptions['code']));
             if (array_key_exists('error', $getProductOptions)) {
                 continue;
             }
             foreach ($getProductOptions['response']['data'] as $productOption) {
                 if (!in_array($productOption['id'], $this->attribute, false)) {
-                    $this->log[$productId]['options'][$productOption['id']] = 'Invalid';
-                }
-                $this->log[$productId]['options'][$productOption['id']] = 'Found';
-                if (empty($found['id'])) {
-                    $this->invalid[$productId]['option'][] = $productOption['id'];
+                    $this->newLogLine(($productId - $productOption['id']) . ': ' . 'Product configuration attribute missing.');
                 }
             }
         }
-        $this->log['invalid']['count'] = count($this->invalid);
-        $this->log['invalid']['configuration'] = $this->invalid;
-        $this->saveFile($this->log);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

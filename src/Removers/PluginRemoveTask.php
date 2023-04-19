@@ -18,6 +18,7 @@ use ShopwareCheckTool\Task\ManufacturerTask;
 use ShopwareCheckTool\Task\MeasurementTask;
 use ShopwareCheckTool\Task\ProductConfiguratorTask;
 use ShopwareCheckTool\Task\ProductVisibilityTask;
+use ShopwareCheckTool\Task\PropertyDynamicTask;
 use ShopwareCheckTool\Task\PropertyTask;
 use ShopwareCheckTool\Task\TagTask;
 
@@ -25,50 +26,50 @@ class PluginRemoveTask extends File
 {
     protected string $name;
     protected Shopware $shopware;
-    private array $log = [];
     private array $tasks;
 
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->useCompletedFolder();
         $this->tasks = $this->getFiles();
     }
 
     public function check(Marketplace $marketplace): void
     {
-        $plentymarket = new Plentymarket($marketplace);
+        $this->newGeneralLine('Locally removing files.');
+        $pMarketplace = new Plentymarket($marketplace);
         foreach ($this->tasks as $file) {
             $table = self::getTable($file);
-            if(!$table){
+            echo $table . PHP_EOL;
+            if (!$table) {
                 continue;
             }
-            foreach ($this->readFile($file, false)['invalid']['list'] as $id) {
-                echo "Reading {$this->name}: $id" . PHP_EOL;
+
+            foreach ($this->readInvalidFile($file) ?: [] as $id) {
+                $resp = $pMarketplace->deleteFromPlugin($table, $id);
+                $this->newLogLine("Removing: {$this->name}-$table-$id-CODE:{$resp['code']}");
                 sleep(1);
-                $resp = $plentymarket->deleteFromPlugin($table, $id);
-                echo "{$this->name}-$table-$id, CODE:{$resp['code']}" . PHP_EOL;
-                $this->log[$table][$id] = 'REMOVED-'.(string)($resp['code']);
             }
         }
-        $this->saveFile($this->log);
+        $this->newGeneralLine('Locally removing finished.');
     }
 
-    private static function getTable($file): string
+    private static function getTable(string $file): string
     {
         $list = [
-            'AttributeReworkTask.json' => AttributeReworkTask::TABLE,
-            'AttributeTask.json' => AttributeTask::TABLE,
-            'CategoryTask.json' => CategoryTask::TABLE,
-            'DeliveryTask.json' => DeliveryTask::TABLE,
-            'ImagesTask.json' => ImagesTask::TABLE,
-            'ManufacturerTask.json' => ManufacturerTask::TABLE,
-            'MeasurementTask.json' => MeasurementTask::TABLE,
-            'ProductConfiguratorTask.json' => ProductConfiguratorTask::TABLE,
-            'ProductVisibilityTask.json' => ProductVisibilityTask::TABLE,
-            'PropertyTask.json' => PropertyTask::TABLE,
-            'TagTask.json' => TagTask::TABLE
+            'AttributeReworkTask.log' => AttributeReworkTask::TABLE,
+            'AttributeTask.log' => AttributeTask::TABLE,
+            'CategoryTask.log' => CategoryTask::TABLE,
+            'DeliveryTask.log' => DeliveryTask::TABLE,
+            'ImagesTask.log' => ImagesTask::TABLE,
+            'ManufacturerTask.log' => ManufacturerTask::TABLE,
+            'MeasurementTask.log' => MeasurementTask::TABLE,
+            'ProductConfiguratorTask.log' => ProductConfiguratorTask::TABLE,
+            'ProductVisibilityTask.log' => ProductVisibilityTask::TABLE,
+            'PropertyTask.log' => PropertyTask::TABLE,
+            'PropertyDynamicTask.log' => PropertyDynamicTask::TABLE,
+            'TagTask.log' => TagTask::TABLE
         ];
         return @$list[$file] ?: '';
     }

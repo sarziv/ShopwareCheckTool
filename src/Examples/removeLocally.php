@@ -1,9 +1,8 @@
 <?php
 
 namespace ShopwareCheckTool;
-require_once('../vendor/autoload.php');
+require_once('../../vendor/autoload.php');
 
-use ShopwareCheckTool\Download\DownloadMarketplace;
 use ShopwareCheckTool\Models\Marketplace;
 use ShopwareCheckTool\Requests\Shopware;
 use ShopwareCheckTool\Task\Tasker;
@@ -14,10 +13,6 @@ $marketplace = new Marketplace();
 $marketplace->setDomain($credentials['domain']);
 $marketplace->setToken($credentials['token']);
 
-$downloadMarketplace = new DownloadMarketplace($marketplace);
-$downloadMarketplace->disable();
-$downloadMarketplace->download();
 $shopware = new Shopware($credentials['configurationId']);
 $tasker = new Tasker($shopware);
-
-$tasker->imageDeep();
+$tasker->remove($marketplace);
