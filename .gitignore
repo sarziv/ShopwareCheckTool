@@ -2,4 +2,4 @@
 /vendor/
 /src/Logs/
 /src/Logs/Downloaded/
-/src/credentials.php
+/src/Examples/credentials.php

@@ -27,16 +27,14 @@ class DeliveryTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $delivery) {
-            echo "Reading {$this->name}: {$delivery['id']}" . PHP_EOL;
             $resp = $this->shopware->getDeliveryById($delivery['sw_delivery_date_id']);
-
-            $this->newFileLineLog(($delivery['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($delivery['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
-                $this->newFileLine($delivery['id']);
+                $this->newInvalidLine($delivery['id']);
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

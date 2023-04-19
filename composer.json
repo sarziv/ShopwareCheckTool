@@ -1,4 +1,5 @@
 {
+  "name": "sarziv/cleantool",
   "autoload": {
     "psr-4": {
       "ShopwareCheckTool\\": "src/"

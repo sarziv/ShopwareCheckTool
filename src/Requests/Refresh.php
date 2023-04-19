@@ -51,7 +51,7 @@ class Refresh
     private function getConfigurationFile(int $configurationId): Configuration
     {
         try {
-            $configurationList = json_decode(file_get_contents(__DIR__ . '/../Logs/Downloaded/Configuration.json'), true, 512, JSON_THROW_ON_ERROR);
+            $configurationList = json_decode(file_get_contents(__DIR__ . "/../Logs/Downloaded/Configuration.json"), true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
             throw new RuntimeException("Configuration file decode error: {$e->getMessage()}");
         }
@@ -68,6 +68,7 @@ class Refresh
         $configuration->setClientSecret($configurationCollection['client_secret']);
         $configuration->setAccessToken($configurationCollection['access_token']);
         $configuration->setExpiresIn($configurationCollection['expires_in']);
+        $configuration->setPath(parse_url($configurationCollection['domain'])['host']);
 
         return $configuration;
     }

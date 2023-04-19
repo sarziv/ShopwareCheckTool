@@ -25,18 +25,22 @@ class PropertyTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $property) {
             $resp = $this->shopware->getPropertyGroupById($property['sw_property_id']);
-            $this->newFileLineLog(($property['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($property['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
-                $this->newFileLine($property['id']);
+                $this->newInvalidLine($property['id']);
+                continue;
             }
             foreach ($property['sw_property_options'] as $sw_property_option) {
                 $resp = $this->shopware->getPropertyGroupOptionById($sw_property_option);
-                $this->newFileLineLog(("{$property['id']}-$sw_property_option: " . (@$resp['code'] ?: $resp['error'])));
+                if (@$resp['code'] === 404) {
+                    $this->newInvalidLine("{$property['id']}-$sw_property_option");
+                }
+                $this->newLogLine(("{$property['id']}-$sw_property_option: " . (@$resp['error'] ?: $resp['code'])));
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

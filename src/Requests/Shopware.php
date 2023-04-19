@@ -26,7 +26,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -44,7 +44,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -62,7 +62,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -80,7 +80,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -98,7 +98,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -116,7 +116,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -134,7 +134,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -152,7 +152,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -170,7 +170,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -188,7 +188,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -206,7 +206,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -224,7 +224,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -242,7 +242,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -260,7 +260,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -278,7 +278,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -296,7 +296,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -314,7 +314,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -332,7 +332,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -361,7 +361,7 @@ class Shopware extends Refresh
                 ]
             ]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -379,7 +379,7 @@ class Shopware extends Refresh
                 'Content-Type' => 'application/json'
             ]]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -409,7 +409,7 @@ class Shopware extends Refresh
                 ]
             ]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),
@@ -441,7 +441,7 @@ class Shopware extends Refresh
                 ]
             ]);
         } catch (GuzzleException $e) {
-            return ['error' => $e->getMessage()];
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
         }
         return [
             'code' => $call->getStatusCode(),

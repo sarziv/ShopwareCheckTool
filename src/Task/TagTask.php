@@ -27,14 +27,14 @@ class TagTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $tag) {
             $resp = $this->shopware->getTagById($tag['sw_tag_id']);
-            $this->newFileLineLog(($tag['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($tag['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
-                $this->newFileLine($tag['id']);
+                $this->newInvalidLine($tag['id']);
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

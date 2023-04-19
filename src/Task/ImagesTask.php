@@ -31,10 +31,10 @@ class ImagesTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $productId => $imageList) {
             $resp = $this->shopware->getMediaByProductId($productId);
-            $this->newFileLineLog(($productId) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($productId) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (array_key_exists('error', $resp)) {
                 continue;
             }
@@ -43,10 +43,10 @@ class ImagesTask extends File
             foreach ($mediaCollection as $media) {
                 $imageFound = $imageListCollection->where('sw_product_media_id', '=', $media['id'])->first();
                 if (empty($imageFound['variation_id'])) {
-                    $this->newFileLine($media['id']);
+                    $this->newInvalidLine($media['id']);
                 }
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

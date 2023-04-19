@@ -28,14 +28,14 @@ class MeasurementTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $measurement) {
             $resp = $this->shopware->getUnitById($measurement['sw_unit_id']);
-            $this->newFileLineLog(($measurement['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($measurement['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
-                $this->newFileLine($measurement['id']);
+                $this->newInvalidLine($measurement['id']);
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

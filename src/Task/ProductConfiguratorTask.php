@@ -37,10 +37,10 @@ class ProductConfiguratorTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $productId => $productConfigurator) {
             $getProductConfigurator = $this->shopware->getConfigurationSettingByProductId($productId);
-            $this->newFileLineLog($productId . ': ' . (@$getProductConfigurator['code'] ?: $getProductConfigurator['error']));
+            $this->newLogLine($productId . ': ' . (@$getProductConfigurator['code'] ?: $getProductConfigurator['error']));
             if (array_key_exists('error', $getProductConfigurator)) {
                 continue;
             }
@@ -48,22 +48,22 @@ class ProductConfiguratorTask extends File
             $collection = Collection::make($productConfigurator);
             foreach ($configurators as $configurator) {
                 $found = $collection->where('sw_product_configurator_id', '=', $configurator['id'])->first();
-                $this->newFileLineLog(($productId . '-' . $configurator['id']) . ': ' . ((int)$found['id'] ? 'Found' : 'Invalid'));
+                $this->newLogLine(($productId . '-' . $configurator['id']) . ': ' . ((int)$found['id'] ? 'Found' : 'Invalid'));
                 if (empty($found['id'])) {
-                    $this->newFileLine($configurator['id']);
+                    $this->newInvalidLine($configurator['id']);
                 }
             }
             $getProductOptions = $this->shopware->getProductOptionsById($productId);
-            $this->log[$productId]['product'] = (@$getProductOptions['code'] ?: $getProductOptions['error']);
+            $this->newLogLine($productConfigurator['id'] . (@$getProductOptions['error'] ?: $getProductOptions['code']));
             if (array_key_exists('error', $getProductOptions)) {
                 continue;
             }
             foreach ($getProductOptions['response']['data'] as $productOption) {
                 if (!in_array($productOption['id'], $this->attribute, false)) {
-                    $this->newFileLineLog(($productId - $productOption['id']) . ': ' . 'Product configuration attribute missing.');
+                    $this->newLogLine(($productId - $productOption['id']) . ': ' . 'Product configuration attribute missing.');
                 }
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

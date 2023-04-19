@@ -25,14 +25,14 @@ class AttributeReworkTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $attribute) {
             $resp = $this->shopware->getPropertyGroupOptionById($attribute['sw_property_option_id']);
-            $this->newFileLineLog(($attribute['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($attribute['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
-                $this->newFileLine($attribute['id']);
+                $this->newInvalidLine($attribute['id']);
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

@@ -26,14 +26,14 @@ class ManufacturerTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $manufacturer) {
             $resp = $this->shopware->getManufacturerById($manufacturer['sw_manufacturer_id']);
-            $this->newFileLineLog(($manufacturer['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($manufacturer['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
-                $this->newFileLine($manufacturer['id']);
+                $this->newInvalidLine($manufacturer['id']);
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

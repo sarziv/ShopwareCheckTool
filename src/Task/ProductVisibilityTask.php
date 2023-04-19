@@ -28,14 +28,14 @@ class ProductVisibilityTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $productVisibility) {
             $resp = $this->shopware->getProductVisibilityById($productVisibility['sw_visibility_id']);
-            $this->newFileLineLog(($productVisibility['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($productVisibility['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
-                $this->newFileLine($productVisibility['id']);
+                $this->newInvalidLine($productVisibility['id']);
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

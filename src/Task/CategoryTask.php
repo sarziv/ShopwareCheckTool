@@ -26,15 +26,15 @@ class CategoryTask extends File
 
     public function check(): void
     {
-        $this->newFileLineLog('Started: ' . self::FILE_NAME);
+        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $category) {
             echo "Reading {$this->name}: {$category['id']}" . PHP_EOL;
             $resp = $this->shopware->getCategoryById($category['sw_category_id']);
-            $this->newFileLineLog(($category['id']) . ': ' . (@$resp['code'] ?: $resp['error']));
+            $this->newLogLine(($category['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
-                $this->newFileLine($category['id']);
+                $this->newInvalidLine($category['id']);
             }
         }
-        $this->newFileLineLog('Finished ' . self::FILE_NAME);
+        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }
