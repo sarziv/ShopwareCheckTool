@@ -3,3 +3,4 @@
 /src/Logs/
 /src/Logs/Downloaded/
 /src/Examples/credentials.php
+./composer.lock
