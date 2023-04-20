@@ -6,7 +6,6 @@ use RuntimeException;
 use ShopwareCheckTool\Models\Marketplace;
 use ShopwareCheckTool\Removers\PluginRemoveTask;
 use ShopwareCheckTool\Requests\Shopware;
-use ShopwareCheckTool\TaskDeeper\ImageDeepInvalidTask;
 use ShopwareCheckTool\TaskDeeper\ImageDeepTask;
 use ShopwareCheckTool\TaskDeeper\ShopwareErrorDuplicateProductNumberTask;
 
@@ -86,12 +85,6 @@ class Tasker
     public function allImages(bool $folderIsThumbnails = false): Tasker
     {
         (new ImageDeepTask($this->shopware))->check($folderIsThumbnails);
-        return $this;
-    }
-
-    public function allImagesClean(Marketplace $marketplace): Tasker
-    {
-        (new ImageDeepInvalidTask($this->shopware))->check($marketplace);
         return $this;
     }
 

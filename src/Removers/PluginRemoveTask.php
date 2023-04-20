@@ -32,7 +32,8 @@ class PluginRemoveTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->tasks = $this->getFiles();
+        $this->useCompletedInvalidFolder();
+        $this->tasks = $this->getFiles() ?: [];
     }
 
     public function check(Marketplace $marketplace): void
@@ -41,14 +42,14 @@ class PluginRemoveTask extends File
         $pMarketplace = new Plentymarket($marketplace);
         foreach ($this->tasks as $file) {
             $table = self::getTable($file);
-            echo $table . PHP_EOL;
             if (!$table) {
                 continue;
             }
 
             foreach ($this->readInvalidFile($file) ?: [] as $id) {
+                $id = (int)$id;
                 $resp = $pMarketplace->deleteFromPlugin($table, $id);
-                $this->newLogLine("Removing: {$this->name}-$table-$id-CODE:{$resp['code']}");
+                $this->newLogLine("Removing:$table-$id:{$resp['code']}");
                 sleep(1);
             }
         }
@@ -63,6 +64,7 @@ class PluginRemoveTask extends File
             'CategoryTask.log' => CategoryTask::TABLE,
             'DeliveryTask.log' => DeliveryTask::TABLE,
             'ImagesTask.log' => ImagesTask::TABLE,
+            'ImageDeepTask.log' => ImagesTask::TABLE,
             'ManufacturerTask.log' => ManufacturerTask::TABLE,
             'MeasurementTask.log' => MeasurementTask::TABLE,
             'ProductConfiguratorTask.log' => ProductConfiguratorTask::TABLE,

@@ -93,14 +93,13 @@ class DownloadMarketplace extends Download
         }
     }
 
-    //TODO Improve pagination
     /**
      * @return void
      */
     private function downloadListPaginate(): void
     {
         foreach (self::LIST_PAGINATE as $table) {
-            $page = 0;
+            $page = 1;
             $payload = [];
             $this->newGeneralLine("Downloading paginated: {$table['name']}");
             do {
