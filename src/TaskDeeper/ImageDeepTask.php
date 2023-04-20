@@ -52,12 +52,6 @@ class ImageDeepTask extends File
                 continue;
             }
 
-            $isFile = ($getMedia['response']['data']['attributes']['hasFile'] ?: false);
-            $this->newLogLine("SW-IS-FILE-{$image['id']}: " . $isFile);
-            if (!$isFile) {
-                $this->newInvalidLine($image['id']);
-                continue;
-            }
             if ($folderIsThumbnails){
                 $getMediaThumbnailsById = $this->shopware->getMediaThumbnailsById($image['sw_media_id']);
                 $this->newLogLine("SW-MEDIA-THUMBNAIL-{$image['id']}: " . (@$getMediaThumbnailsById['error'] ?: count($getMediaThumbnailsById['response']['data'])));
@@ -65,7 +59,6 @@ class ImageDeepTask extends File
                     $this->newInvalidLine($image['id']);
                 }
             }
-
         }
         $this->newGeneralLine('Finished: ' . self::FILE_NAME);
     }

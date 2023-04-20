@@ -33,7 +33,7 @@ class ShopwareErrorDuplicateProductNumberTask extends File
         $this->newGeneralLine('Started: ' . self::FILE_NAME);
         foreach ($this->file as $productNumber) {
             $postProductSearch = $this->shopware->postProductSearch($productNumber);
-            $this->newLogLine("{$productNumber}:{$postProductSearch['code']}");
+            $this->newLogLine("$productNumber:{$postProductSearch['code']}");
             if ($postProductSearch['code'] === 200 || $postProductSearch['response']['meta']['total'] <= 0) {
                 $this->newLogLine("SKIP-CHECK:$productNumber, CODE:{$postProductSearch['code']}, TOTAL: {$postProductSearch['response']['meta']['total']}");
                 continue;

@@ -31,14 +31,6 @@ class PropertyTask extends File
             $this->newLogLine(($property['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($property['id']);
-                continue;
-            }
-            foreach ($property['sw_property_options'] as $sw_property_option) {
-                $resp = $this->shopware->getPropertyGroupOptionById($sw_property_option);
-                if (@$resp['code'] === 404) {
-                    $this->newInvalidLine("{$property['id']}-$sw_property_option");
-                }
-                $this->newLogLine(("{$property['id']}-$sw_property_option: " . (@$resp['error'] ?: $resp['code'])));
             }
         }
         $this->newLogLine('Finished ' . self::FILE_NAME);

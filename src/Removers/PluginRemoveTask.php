@@ -4,6 +4,8 @@
 namespace ShopwareCheckTool\Removers;
 
 
+use Exception;
+use Illuminate\Contracts\Encryption\EncryptException;
 use ReflectionClass;
 use ShopwareCheckTool\FileManagement\File;
 use ShopwareCheckTool\Models\Marketplace;
@@ -28,31 +30,35 @@ class PluginRemoveTask extends File
     protected Shopware $shopware;
     private array $tasks;
 
+    /**
+     * @throws Exception
+     */
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->tasks = $this->getFiles();
+        $this->useCompletedInvalidFolder();
+        $this->tasks = $this->getFiles() ?: throw new Exception('No files');
     }
 
     public function check(Marketplace $marketplace): void
     {
-        $this->newGeneralLine('Locally removing files.');
+        $this->newGeneralLine('Started local removing task.');
         $pMarketplace = new Plentymarket($marketplace);
         foreach ($this->tasks as $file) {
             $table = self::getTable($file);
-            echo $table . PHP_EOL;
             if (!$table) {
                 continue;
             }
 
             foreach ($this->readInvalidFile($file) ?: [] as $id) {
+                $id = (int)$id;
                 $resp = $pMarketplace->deleteFromPlugin($table, $id);
-                $this->newLogLine("Removing: {$this->name}-$table-$id-CODE:{$resp['code']}");
+                $this->newLogLine("Removing:$table-$id:{$resp['code']}");
                 sleep(1);
             }
         }
-        $this->newGeneralLine('Locally removing finished.');
+        $this->newGeneralLine('Finished local removing task.');
     }
 
     private static function getTable(string $file): string
@@ -63,6 +69,7 @@ class PluginRemoveTask extends File
             'CategoryTask.log' => CategoryTask::TABLE,
             'DeliveryTask.log' => DeliveryTask::TABLE,
             'ImagesTask.log' => ImagesTask::TABLE,
+            'ImageDeepTask.log' => ImagesTask::TABLE,
             'ManufacturerTask.log' => ManufacturerTask::TABLE,
             'MeasurementTask.log' => MeasurementTask::TABLE,
             'ProductConfiguratorTask.log' => ProductConfiguratorTask::TABLE,

@@ -369,6 +369,37 @@ class Shopware extends Refresh
         ];
     }
 
+    public function postProductCloneSearch(int $page): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->post("search/product", [
+                RequestOptions::HEADERS => [
+                    'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                    'Accept' => '*/*',
+                    'Content-Type' => 'application/json'
+                ],
+                RequestOptions::JSON => [
+                    'page' => 1,
+                    'limit' => 100,
+                    'filter' => [
+                        [
+                            'type' => 'contains',
+                            'field' => 'product.productNumber',
+                            'value' => '_COPY'
+                        ]
+                    ]
+                ]
+            ]);
+        } catch (GuzzleException $e) {
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
     public function deleteProductById(string $id): array
     {
         $this->authenticate();

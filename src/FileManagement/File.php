@@ -102,7 +102,6 @@ abstract class File extends Log
 
     public function getFiles(): array
     {
-        $this->useCompletedFolder();
         return array_diff(scandir($this->path), array('..', '.'));
     }
 
