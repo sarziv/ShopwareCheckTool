@@ -5,7 +5,6 @@ namespace ShopwareCheckTool\Removers;
 
 
 use Exception;
-use Illuminate\Contracts\Encryption\EncryptException;
 use ReflectionClass;
 use ShopwareCheckTool\FileManagement\File;
 use ShopwareCheckTool\Models\Marketplace;
@@ -53,6 +52,9 @@ class PluginRemoveTask extends File
 
             foreach ($this->readInvalidFile($file) ?: [] as $id) {
                 $id = (int)$id;
+                if (!$id) {
+                    continue;
+                }
                 $resp = $pMarketplace->deleteFromPlugin($table, $id);
                 $this->newLogLine("Removing:$table-$id:{$resp['code']}");
                 sleep(1);
