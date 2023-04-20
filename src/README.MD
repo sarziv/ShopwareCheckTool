@@ -79,5 +79,6 @@ $tasker->remove($marketplace);
         │         └── Invalid
         │             └── Inavlid *.log files - Checked with removing tasks
         ├── Downloaded
+        │   └── Plugin files for the current scan
         └── *.log - General log
 ```
