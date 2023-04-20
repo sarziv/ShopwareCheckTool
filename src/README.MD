@@ -1,12 +1,15 @@
 # Check tool
 ## Installation
 ```bash
+git clone {repository}
+cd {folder}
 composer install
+cp ./src/Examples/.credentials.php ./src/Examples/credentials.php
+php {location}/src/Examples/runLocally.php
 ```
 ## Local development
-Runner tasks can be found at `Tasker.php`
 ### Checking records
-
+Last line of code is to chain tasks `$tasker->` in the example.
 ```php
 <?php
 
@@ -30,6 +33,7 @@ $tasker = new Tasker($shopware);
 $tasker->all()->allImages();
 ```
 ### Removing records
+Generally this file should not be changed, as it uses generated files from tasks.
 Removing records can only be done after checking, as they generate invalid id's logs.
 ```php
 <?php
