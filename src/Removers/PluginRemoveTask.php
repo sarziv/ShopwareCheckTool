@@ -4,6 +4,8 @@
 namespace ShopwareCheckTool\Removers;
 
 
+use Exception;
+use Illuminate\Contracts\Encryption\EncryptException;
 use ReflectionClass;
 use ShopwareCheckTool\FileManagement\File;
 use ShopwareCheckTool\Models\Marketplace;
@@ -28,17 +30,20 @@ class PluginRemoveTask extends File
     protected Shopware $shopware;
     private array $tasks;
 
+    /**
+     * @throws Exception
+     */
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
         $this->useCompletedInvalidFolder();
-        $this->tasks = $this->getFiles() ?: [];
+        $this->tasks = $this->getFiles() ?: throw new Exception('No files');
     }
 
     public function check(Marketplace $marketplace): void
     {
-        $this->newGeneralLine('Locally removing files.');
+        $this->newGeneralLine('Started local removing task.');
         $pMarketplace = new Plentymarket($marketplace);
         foreach ($this->tasks as $file) {
             $table = self::getTable($file);
@@ -53,7 +58,7 @@ class PluginRemoveTask extends File
                 sleep(1);
             }
         }
-        $this->newGeneralLine('Locally removing finished.');
+        $this->newGeneralLine('Finished local removing task.');
     }
 
     private static function getTable(string $file): string
