@@ -67,7 +67,7 @@ abstract class File extends Log
         if (!file_exists($file)) {
             return null;
         }
-        if ($file = fopen($file, 'rwb', true)) {
+        if ($file = fopen($file, 'rb', true)) {
             while (!feof($file)) {
                 yield fgets($file);
             }
