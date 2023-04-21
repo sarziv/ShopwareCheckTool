@@ -8,6 +8,15 @@ cp ./src/Examples/.credentials.php ./src/Examples/credentials.php
 php {location}/src/Examples/runLocally.php
 ```
 ## Local development
+### Credentials
+* ConfigurationId - Configuration ID of the assistant
+* Domain - PM System domain
+* Token - Generated via [AccessToken](https://developers.plentymarkets.com/en-gb/plentymarkets-rest-api/index.html#/Account/post_rest_account_login) or PM Storage
+
+Configuration ID can be found at:
+* Network then opening configuration assistant
+* GET {{plentymarketHost}}/rest/PlentymarketsShopwareCore/test?model=Configuration
+
 ### Checking records
 Last line of code is to chain tasks `$tasker->` in the example.
 ```php
