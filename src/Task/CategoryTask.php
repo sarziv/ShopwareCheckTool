@@ -20,13 +20,12 @@ class CategoryTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
-        $this->clear();
+        $offset = $this->clear();
+        $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->slice($offset)->toArray();
     }
 
     public function check(): void
     {
-        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $category) {
             echo "Reading {$this->name}: {$category['id']}" . PHP_EOL;
             $resp = $this->shopware->getCategoryById($category['sw_category_id']);
@@ -35,6 +34,5 @@ class CategoryTask extends File
                 $this->newInvalidLine($category['id']);
             }
         }
-        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

@@ -21,13 +21,12 @@ class PropertyDynamicTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
-        $this->clear();
+        $offset = $this->clear();
+        $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->slice($offset)->toArray();
     }
 
     public function check(): void
     {
-        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $dynamicProperty) {
             if($dynamicProperty['sw_property_option_id'] === 'null'){
                 $resp = $this->shopware->getPropertyGroupById($dynamicProperty['sw_property_id']);
@@ -43,6 +42,5 @@ class PropertyDynamicTask extends File
                 $this->newInvalidLine($dynamicProperty['id']);
             }
         }
-        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

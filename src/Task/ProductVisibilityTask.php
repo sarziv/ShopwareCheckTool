@@ -20,15 +20,14 @@ class ProductVisibilityTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
+        $offset = $this->clear();
         $this->file = Collection::make($this->readFile('ProductVisibility'))
-            ->where('configuration_id', '=', $this->shopware->configuration->getId())
+            ->where('configuration_id', '=', $this->shopware->configuration->getId())->slice($offset)
             ->toArray();
-        $this->clear();
     }
 
     public function check(): void
     {
-        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $productVisibility) {
             $resp = $this->shopware->getProductVisibilityById($productVisibility['sw_visibility_id']);
             $this->newLogLine(($productVisibility['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
@@ -36,6 +35,5 @@ class ProductVisibilityTask extends File
                 $this->newInvalidLine($productVisibility['id']);
             }
         }
-        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

@@ -76,7 +76,7 @@ abstract class File extends Log
         return null;
     }
 
-    public function clear(): void
+    public function clear(): int
     {
         $file = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/Invalid/$this->name.log";
         $fileLog = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/$this->name.log";
@@ -84,8 +84,10 @@ abstract class File extends Log
             unlink($file);
         }
         if (file_exists($fileLog)) {
+            $count = count(file($fileLog));
             unlink($fileLog);
         }
+        return $count ?? 0;
     }
 
     public function newInvalidLine(string $line = ''): void

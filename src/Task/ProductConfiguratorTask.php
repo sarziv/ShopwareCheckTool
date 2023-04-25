@@ -23,47 +23,20 @@ class ProductConfiguratorTask extends File
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
 
+        $offset = $this->clear();
         $this->file = Collection::make($this->readFile(self::FILE_NAME))
-            ->where('configuration_id', '=', $this->shopware->configuration->getId())
-            ->groupBy('sw_product_id')
+            ->where('configuration_id', '=', $this->shopware->configuration->getId())->slice($offset)
             ->toArray();
-
-        $this->attribute = Collection::make($this->readFile('AttributeReworkMatch'))
-            ->where('configuration_id', '=', $this->shopware->configuration->getId())
-            ->pluck('sw_property_option_id')
-            ->toArray();
-        $this->clear();
     }
 
     public function check(): void
     {
-        $this->newLogLine('Started ' . self::FILE_NAME);
-        foreach ($this->file as $productId => $productConfigurator) {
-            $getProductConfigurator = $this->shopware->getConfigurationSettingByProductId($productId);
-            $this->newLogLine($productId . ': ' . (@$getProductConfigurator['code'] ?: $getProductConfigurator['error']));
-            if (array_key_exists('error', $getProductConfigurator)) {
-                continue;
-            }
-            $configurators = Collection::make($getProductConfigurator['response']['data']);
-            $collection = Collection::make($productConfigurator);
-            foreach ($configurators as $configurator) {
-                $found = $collection->where('sw_product_configurator_id', '=', $configurator['id'])->first();
-                $this->newLogLine(($productId . '-' . $configurator['id']) . ': ' . ((int)$found['id'] ? 'Found' : 'Invalid'));
-                if (empty($found['id'])) {
-                    $this->newInvalidLine($configurator['id']);
-                }
-            }
-            $getProductOptions = $this->shopware->getProductOptionsById($productId);
-            $this->newLogLine($productConfigurator['id'] . (@$getProductOptions['error'] ?: $getProductOptions['code']));
-            if (array_key_exists('error', $getProductOptions)) {
-                continue;
-            }
-            foreach ($getProductOptions['response']['data'] as $productOption) {
-                if (!in_array($productOption['id'], $this->attribute, false)) {
-                    $this->newLogLine(($productId - $productOption['id']) . ': ' . 'Product configuration attribute missing.');
-                }
+        foreach ($this->file as $configurator) {
+            $resp = $this->shopware->getProductConfiguratorSettingById($configurator['sw_product_configurator_id']);
+            $this->newLogLine("{$configurator['id']}: ".(@$resp['code'] ?: $resp['error']));
+            if (@$resp['code'] === 404) {
+                $this->newInvalidLine($configurator['id']);
             }
         }
-        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

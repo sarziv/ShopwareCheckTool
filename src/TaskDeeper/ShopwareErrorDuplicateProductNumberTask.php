@@ -30,7 +30,6 @@ class ShopwareErrorDuplicateProductNumberTask extends File
 
     public function check(): void
     {
-        $this->newGeneralLine('Started: ' . self::FILE_NAME);
         foreach ($this->file as $productNumber) {
             $postProductSearch = $this->shopware->postProductSearch($productNumber);
             $this->newLogLine("$productNumber:{$postProductSearch['code']}");
@@ -41,6 +40,5 @@ class ShopwareErrorDuplicateProductNumberTask extends File
             $deleteProductById = $this->shopware->deleteProductById($postProductSearch['response']['data'][0]['id']);
             $this->newLogLine("REMOVE:$productNumber, CODE:{$deleteProductById['code']}");
         }
-        $this->newGeneralLine('Finished ' . self::FILE_NAME);
     }
 }

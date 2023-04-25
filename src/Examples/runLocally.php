@@ -20,4 +20,4 @@ $downloadMarketplace->download();
 $shopware = new Shopware($credentials['configurationId']);
 $tasker = new Tasker($shopware);
 
-$tasker->all()->allImages();
+$tasker->productConfigurator();

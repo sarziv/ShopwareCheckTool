@@ -21,13 +21,12 @@ class TagTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->file = Collection::make($this->readFile('Tag'))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
-        $this->clear();
+        $offset = $this->clear();
+        $this->file = Collection::make($this->readFile('Tag'))->where('configuration_id', '=', $this->shopware->configuration->getId())->slice($offset)->toArray();
     }
 
     public function check(): void
     {
-        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $tag) {
             $resp = $this->shopware->getTagById($tag['sw_tag_id']);
             $this->newLogLine(($tag['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
@@ -35,6 +34,5 @@ class TagTask extends File
                 $this->newInvalidLine($tag['id']);
             }
         }
-        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }

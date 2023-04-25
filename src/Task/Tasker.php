@@ -76,12 +76,6 @@ class Tasker
         return $this;
     }
 
-    public function images(): Tasker
-    {
-        (new ImagesTask($this->shopware))->check();
-        return $this;
-    }
-
     public function allImages(bool $folderIsThumbnails = false): Tasker
     {
         (new ImageDeepTask($this->shopware))->check($folderIsThumbnails);
@@ -123,7 +117,6 @@ class Tasker
         (new PropertyTask($this->shopware))->check();
         (new PropertyDynamicTask($this->shopware))->check();
         (new TagTask($this->shopware))->check();
-        (new ImagesTask($this->shopware))->check();
         (new ProductVisibilityTask($this->shopware))->check();
         return $this;
     }

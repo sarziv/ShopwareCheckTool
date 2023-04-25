@@ -19,13 +19,12 @@ class AttributeReworkTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->toArray();
-        $this->clear();
+        $offset = $this->clear();
+        $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->slice($offset)->toArray();
     }
 
     public function check(): void
     {
-        $this->newLogLine('Started ' . self::FILE_NAME);
         foreach ($this->file as $attribute) {
             $resp = $this->shopware->getPropertyGroupOptionById($attribute['sw_property_option_id']);
             $this->newLogLine(($attribute['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
@@ -33,6 +32,5 @@ class AttributeReworkTask extends File
                 $this->newInvalidLine($attribute['id']);
             }
         }
-        $this->newLogLine('Finished ' . self::FILE_NAME);
     }
 }
