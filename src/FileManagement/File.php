@@ -76,7 +76,7 @@ abstract class File extends Log
         return null;
     }
 
-    public function clear(): int
+    public function clear(int $fileCount): int
     {
         $file = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/Invalid/$this->name.log";
         $fileLog = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/$this->name.log";
@@ -85,7 +85,10 @@ abstract class File extends Log
         }
         if (file_exists($fileLog)) {
             $count = count(file($fileLog));
-            unlink($fileLog);
+            if ($fileCount <= $count) {
+                $count = 0;
+                unlink($fileLog);
+            }
         }
         return $count ?? 0;
     }

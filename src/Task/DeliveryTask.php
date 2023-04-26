@@ -21,8 +21,9 @@ class DeliveryTask extends File
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
-        $offset = $this->clear();
-        $this->file = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId())->slice($offset)->toArray();
+        $collection = Collection::make($this->readFile(self::FILE_NAME))->where('configuration_id', '=', $this->shopware->configuration->getId());
+        $offset = $this->clear($collection->count());
+        $this->file = $collection->slice($offset)->toArray();
     }
 
     public function check(): void

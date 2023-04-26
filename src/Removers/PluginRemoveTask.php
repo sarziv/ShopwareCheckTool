@@ -29,15 +29,12 @@ class PluginRemoveTask extends File
     protected Shopware $shopware;
     private array $tasks;
 
-    /**
-     * @throws Exception
-     */
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
         $this->shopware = $shopware;
         $this->useCompletedInvalidFolder();
-        $this->tasks = $this->getFiles() ?: throw new Exception('No files');
+        $this->tasks = $this->getFiles();
     }
 
     public function check(Marketplace $marketplace): void
