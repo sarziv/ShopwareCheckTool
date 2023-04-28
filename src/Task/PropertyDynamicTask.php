@@ -11,9 +11,7 @@ class PropertyDynamicTask extends File
 {
     protected string $name;
     protected Shopware $shopware;
-    private array $invalid = [];
     private array $file;
-    private array $log = [];
     public const FILE_NAME = 'PropertyDynamic';
     public const TABLE = 'PropertyDynamicMatch';
 
