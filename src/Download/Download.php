@@ -54,10 +54,10 @@ abstract class Download extends Log
         self::REFERRER
     ];
 
-    protected function save(string $name, string $json): void
+    protected function save(string $name, string $json): array
     {
         if (!in_array($name, self::NAMES)) {
-            return;
+            return ['success' => false, 'message' => 'Wrong name of the file.'];
         }
         $dir = __DIR__ . "/../Logs/Downloaded/";
         $file = "$dir/$name.json";
@@ -69,6 +69,7 @@ abstract class Download extends Log
         if (file_exists($file)) {
             unlink($file);
         }
-        file_put_contents($file, $json);
+        $filePut = file_put_contents($file, $json);
+        return ['success' => true, 'message' => "file_put_contents: $filePut"];
     }
 }

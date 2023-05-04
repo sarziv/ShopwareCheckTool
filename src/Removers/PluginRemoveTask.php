@@ -22,6 +22,7 @@ use ShopwareCheckTool\Task\ProductVisibilityTask;
 use ShopwareCheckTool\Task\PropertyDynamicTask;
 use ShopwareCheckTool\Task\PropertyTask;
 use ShopwareCheckTool\Task\TagTask;
+use ShopwareCheckTool\TaskDeeper\ImageDeepTask;
 
 class PluginRemoveTask extends File
 {
@@ -67,8 +68,7 @@ class PluginRemoveTask extends File
             'AttributeTask.log' => AttributeTask::TABLE,
             'CategoryTask.log' => CategoryTask::TABLE,
             'DeliveryTask.log' => DeliveryTask::TABLE,
-            'ImagesTask.log' => ImagesTask::TABLE,
-            'ImageDeepTask.log' => ImagesTask::TABLE,
+            'ImageDeepTask.log' => ImageDeepTask::TABLE,
             'ManufacturerTask.log' => ManufacturerTask::TABLE,
             'MeasurementTask.log' => MeasurementTask::TABLE,
             'ProductConfiguratorTask.log' => ProductConfiguratorTask::TABLE,

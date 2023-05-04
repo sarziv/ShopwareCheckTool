@@ -15,6 +15,7 @@ class ImageDeepTask extends File
     protected Shopware $shopware;
     private array $file;
     public const FILE_NAME = 'Images';
+    public const TABLE = 'VariationImageQueue';
 
     public function __construct(Shopware $shopware)
     {
