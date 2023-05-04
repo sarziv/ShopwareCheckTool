@@ -28,7 +28,7 @@ class AttributeReworkTask extends File
     {
         foreach ($this->file as $attribute) {
             $resp = $this->shopware->getPropertyGroupOptionById($attribute['sw_property_option_id']);
-            $this->newLogLine(($attribute['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($attribute['id']) . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($attribute['id']);
             }

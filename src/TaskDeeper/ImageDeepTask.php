@@ -38,14 +38,14 @@ class ImageDeepTask extends File
 
             $getProductMedia = $this->shopware->getProductMediaById($image['sw_product_media_id']);
             if ($getProductMedia['code'] === 404) {
-                $this->newLogLine("SW-PRODUCT-MEDIA-{$image['id']}: " . (@$getProductMedia['error'] ?: $getProductMedia['code']));
+                $this->newLogLine("SW-PRODUCT-MEDIA-{$image['id']}: " . $getProductMedia['code']);
                 $this->newInvalidLine($image['id']);
                 continue;
             }
 
             $getMedia = $this->shopware->getMediaById($image['sw_media_id']);
             if ($getMedia['code'] === 404) {
-                $this->newLogLine("SW-MEDIA-{$image['id']}: " . (@$getMedia['error'] ?: $getMedia['code']));
+                $this->newLogLine("SW-MEDIA-{$image['id']}: " . $getMedia['code']);
                 $this->newInvalidLine($image['id']);
                 continue;
             }
@@ -58,7 +58,7 @@ class ImageDeepTask extends File
                     continue;
                 }
             }
-            $this->newLogLine("SW-PRODUCT-{$image['id']}: " . (@$getProduct['error'] ?: $getProduct['code']));
+            $this->newLogLine("SW-PRODUCT-{$image['id']}: " . $getProduct['code']);
         }
     }
 }

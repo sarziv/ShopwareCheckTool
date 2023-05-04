@@ -29,7 +29,7 @@ class MeasurementTask extends File
     {
         foreach ($this->file as $measurement) {
             $resp = $this->shopware->getUnitById($measurement['sw_unit_id']);
-            $this->newLogLine(($measurement['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($measurement['id']) . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($measurement['id']);
             }

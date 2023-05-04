@@ -31,7 +31,7 @@ class ProductConfiguratorTask extends File
     {
         foreach ($this->file as $configurator) {
             $resp = $this->shopware->getProductConfiguratorSettingById($configurator['sw_product_configurator_id']);
-            $this->newLogLine("{$configurator['id']}: ".(@$resp['code'] ?: $resp['error']));
+            $this->newLogLine("{$configurator['id']}: " . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($configurator['id']);
             }

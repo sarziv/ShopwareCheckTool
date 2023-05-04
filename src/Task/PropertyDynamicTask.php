@@ -29,14 +29,14 @@ class PropertyDynamicTask extends File
         foreach ($this->file as $dynamicProperty) {
             if($dynamicProperty['sw_property_option_id'] === 'null'){
                 $resp = $this->shopware->getPropertyGroupById($dynamicProperty['sw_property_id']);
-                $this->newLogLine($dynamicProperty['sw_property_id'] . ': ' . (@$resp['error'] ?: $resp['code']));
+                $this->newLogLine($dynamicProperty['sw_property_id'] . ': ' . $resp['code']);
                 if (@$resp['code'] === 404) {
                     $this->newInvalidLine($dynamicProperty['id']);
                 }
                 continue;
             }
             $resp = $this->shopware->getPropertyGroupOptionById($dynamicProperty['sw_property_option_id']);
-            $this->newLogLine($dynamicProperty['sw_property_id'] . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine($dynamicProperty['sw_property_id'] . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($dynamicProperty['id']);
             }

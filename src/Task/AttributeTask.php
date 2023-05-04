@@ -14,6 +14,7 @@ class AttributeTask extends File
     private array $file;
     public const FILE_NAME = 'Attribute';
     public const TABLE = 'AttributeMatch';
+
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
@@ -27,7 +28,7 @@ class AttributeTask extends File
     {
         foreach ($this->file as $attribute) {
             $resp = $this->shopware->getPropertyGroupById($attribute['sw_property_id']);
-            $this->newLogLine(($attribute['sw_property_id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($attribute['sw_property_id']) . ': ' . $resp['code']);
             foreach ($attribute['sw_property_options'] as $sw_property_option) {
                 $resp = $this->shopware->getPropertyGroupOptionById($sw_property_option);
                 if (@$resp['code'] === 404) {

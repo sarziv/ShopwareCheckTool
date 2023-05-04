@@ -16,6 +16,7 @@ class ProductVisibilityTask extends File
     private array $file;
     public const FILE_NAME = 'ProductVisibility';
     public const TABLE = 'ProductVisibility';
+
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
@@ -29,7 +30,7 @@ class ProductVisibilityTask extends File
     {
         foreach ($this->file as $productVisibility) {
             $resp = $this->shopware->getProductVisibilityById($productVisibility['sw_visibility_id']);
-            $this->newLogLine(($productVisibility['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($productVisibility['id']) . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($productVisibility['id']);
             }

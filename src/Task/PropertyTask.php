@@ -28,7 +28,7 @@ class PropertyTask extends File
     {
         foreach ($this->file as $property) {
             $resp = $this->shopware->getPropertyGroupById($property['sw_property_id']);
-            $this->newLogLine(($property['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($property['id']) . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($property['id']);
             }

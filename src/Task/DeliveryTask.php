@@ -30,7 +30,7 @@ class DeliveryTask extends File
     {
         foreach ($this->file as $delivery) {
             $resp = $this->shopware->getDeliveryById($delivery['sw_delivery_date_id']);
-            $this->newLogLine(($delivery['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($delivery['id']) . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($delivery['id']);
             }

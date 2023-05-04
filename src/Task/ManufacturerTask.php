@@ -29,7 +29,7 @@ class ManufacturerTask extends File
     {
         foreach ($this->file as $manufacturer) {
             $resp = $this->shopware->getManufacturerById($manufacturer['sw_manufacturer_id']);
-            $this->newLogLine(($manufacturer['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($manufacturer['id']) . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($manufacturer['id']);
             }

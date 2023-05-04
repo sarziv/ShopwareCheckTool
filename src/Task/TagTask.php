@@ -30,7 +30,7 @@ class TagTask extends File
     {
         foreach ($this->file as $tag) {
             $resp = $this->shopware->getTagById($tag['sw_tag_id']);
-            $this->newLogLine(($tag['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($tag['id']) . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($tag['id']);
             }

@@ -16,6 +16,7 @@ class CategoryTask extends File
     private array $file;
     public const FILE_NAME = 'Category';
     public const TABLE = 'CategoryMatch';
+
     public function __construct(Shopware $shopware)
     {
         $this->name = (new ReflectionClass($this))->getShortName();
@@ -30,7 +31,7 @@ class CategoryTask extends File
         foreach ($this->file as $category) {
             echo "Reading {$this->name}: {$category['id']}" . PHP_EOL;
             $resp = $this->shopware->getCategoryById($category['sw_category_id']);
-            $this->newLogLine(($category['id']) . ': ' . (@$resp['error'] ?: $resp['code']));
+            $this->newLogLine(($category['id']) . ': ' . $resp['code']);
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($category['id']);
             }
