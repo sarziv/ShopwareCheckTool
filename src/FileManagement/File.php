@@ -93,16 +93,16 @@ abstract class File extends Log
         return $count ?? 0;
     }
 
-    public function newInvalidLine(string $line = ''): void
+    public function newInvalidLine(string $line = ''): int|bool
     {
         $file = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/Invalid/$this->name.log";
-        file_put_contents($file, $line . PHP_EOL, FILE_APPEND);
+        return file_put_contents($file, $line . PHP_EOL, FILE_APPEND);
     }
 
-    public function newLogLine(string $line = ''): void
+    public function newLogLine(string $line = ''): int|bool
     {
         $file = __DIR__ . "/../Logs/Completed/{$this->shopware->configuration->getPath()}/$this->name.log";
-        file_put_contents($file, date('Y-m-d H:i:s') . ' ' . $line . PHP_EOL, FILE_APPEND);
+        return file_put_contents($file, date('Y-m-d H:i:s') . ' ' . $line . PHP_EOL, FILE_APPEND);
     }
 
     public function getFiles(): array
