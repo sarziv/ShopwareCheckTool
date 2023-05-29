@@ -25,7 +25,7 @@ class ShopwareErrorDuplicateProductNumberTask extends File
             ->whereIn('errors.0.code', 'CONTENT__DUPLICATE_PRODUCT_NUMBER')->pluck('errors.0.meta.parameters.number')
             ->unique()
             ->toArray();
-        $this->clear();
+        $this->clear(0);
     }
 
     public function check(): void

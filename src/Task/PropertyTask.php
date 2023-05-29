@@ -32,6 +32,10 @@ class PropertyTask extends File
             if (@$resp['code'] === 404) {
                 $this->newInvalidLine($property['id']);
             }
+            foreach ($property['sw_property_options'] as $sw_property_option) {
+                $resp = $this->shopware->getPropertyGroupOptionById($sw_property_option);
+                $this->newLogLine(("{$property['id']}-$sw_property_option: " . (@$resp['code'] ?: $resp['error'])));
+            }
         }
     }
 }
