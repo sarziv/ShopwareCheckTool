@@ -22,6 +22,8 @@ abstract class Download extends Log
     public const PRODUCT_VISIBILITY = 'ProductVisibility';
     public const SHOPWARE_ERROR = 'ShopwareError';
     public const REFERRER = 'Referrer';
+    public const CROSS_SELLING = 'CrossSelling';
+    public const ADVANCED_PRICE = 'AdvancedPrice';
 
     public const ATTRIBUTE_LOG = 'AttributeTask';
     public const ATTRIBUTE_REWORK_LOG = 'AttributeReworkTask';
@@ -35,6 +37,7 @@ abstract class Download extends Log
     public const TAG_LOG = 'TagTask';
     public const PRODUCT_CONFIGURATION_LOG = 'ProductConfiguratorTask';
     public const PRODUCT_VISIBILITY_LOG = 'ProductVisibilityTask';
+    public const CROSS_SELLING_LOG = 'CrossSellingTask';
 
     public const NAMES = [
         self::CONFIGURATION,
@@ -51,7 +54,8 @@ abstract class Download extends Log
         self::PRODUCT_CONFIGURATION,
         self::PRODUCT_VISIBILITY,
         self::SHOPWARE_ERROR,
-        self::REFERRER
+        self::REFERRER,
+        self::CROSS_SELLING
     ];
 
     protected function save(string $name, string $json): array

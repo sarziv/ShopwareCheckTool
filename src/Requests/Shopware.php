@@ -142,6 +142,42 @@ class Shopware extends Refresh
         ];
     }
 
+    public function getProductCrossSellingById(string $id): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->get("product/$id/cross-sellings?_response=true", [RequestOptions::HEADERS => [
+                'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                'Accept' => '*/*',
+                'Content-Type' => 'application/json'
+            ]]);
+        } catch (GuzzleException $e) {
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
+    public function getProductAdvancedPriceById(string $id): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->get("product/$id/prices?_response=true", [RequestOptions::HEADERS => [
+                'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                'Accept' => '*/*',
+                'Content-Type' => 'application/json'
+            ]]);
+        } catch (GuzzleException $e) {
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
     public function getMediaById(string $id): array
     {
         $this->authenticate();
@@ -201,6 +237,24 @@ class Shopware extends Refresh
         $this->authenticate();
         try {
             $call = $this->client->get("product/$id/media?_response=true", [RequestOptions::HEADERS => [
+                'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
+                'Accept' => '*/*',
+                'Content-Type' => 'application/json'
+            ]]);
+        } catch (GuzzleException $e) {
+            return ['code' => $e->getCode(), 'error' => $e->getMessage()];
+        }
+        return [
+            'code' => $call->getStatusCode(),
+            'response' => json_decode($call->getBody()->getContents(), true)
+        ];
+    }
+
+    public function deleteMediaByProductId(string $id, string $mediaId): array
+    {
+        $this->authenticate();
+        try {
+            $call = $this->client->delete("product/$id/media/$mediaId?_response=true", [RequestOptions::HEADERS => [
                 'Authorization' => "Bearer {$this->configuration->getAccessToken()}",
                 'Accept' => '*/*',
                 'Content-Type' => 'application/json'

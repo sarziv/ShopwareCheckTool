@@ -58,7 +58,19 @@ class Configuration
      */
     public function setVersion(string $version): void
     {
-        $this->version = $version;
+        $prefix = [
+            '/api/v1/' => '/api/v1/',
+            '/api/v2/' => '/api/v2/',
+            '/api/v3/' => '/api/v3/',
+            '/api/' => '/api/',
+            '6.1' => '/api/v1/',
+            '6.2' => '/api/v2/',
+            '6.3' => '/api/v3/',
+            '6.4' => '/api/',
+            '6.5' => '/api/',
+            '6.6' => '/api/'
+        ];
+        $this->version = $prefix[$version];
     }
 
     /**

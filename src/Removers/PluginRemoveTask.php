@@ -14,7 +14,6 @@ use ShopwareCheckTool\Task\AttributeReworkTask;
 use ShopwareCheckTool\Task\AttributeTask;
 use ShopwareCheckTool\Task\CategoryTask;
 use ShopwareCheckTool\Task\DeliveryTask;
-use ShopwareCheckTool\Task\ImagesTask;
 use ShopwareCheckTool\Task\ManufacturerTask;
 use ShopwareCheckTool\Task\MeasurementTask;
 use ShopwareCheckTool\Task\ProductConfiguratorTask;
@@ -55,7 +54,7 @@ class PluginRemoveTask extends File
                 }
                 $resp = $pMarketplace->deleteFromPlugin($table, $id);
                 $this->newLogLine("Removing:$table-$id:{$resp['code']}");
-                sleep(1);
+                sleep(3);
             }
         }
         $this->newGeneralLine('Finished local removing task.');

@@ -26,6 +26,8 @@ class DownloadMarketplace extends Download
     private const PRODUCT_VISIBILITY_URL = ['uri' => self::PREFIX . 'ProductVisibility', 'name' => Download::PRODUCT_VISIBILITY];
     private const SHOPWARE_ERROR_URL = ['uri' => self::PREFIX . 'ShopwareError', 'name' => Download::SHOPWARE_ERROR];
     private const REFERRERS_URL = ['uri' => self::PREFIX . 'Referrer', 'name' => Download::REFERRER];
+    private const CROSS_SELLING_URL = ['uri' => self::PREFIX . 'CrossSellingMatch', 'name' => Download::CROSS_SELLING];
+    private const ADVANCED_PRICE_URL = ['uri' => self::PREFIX . 'AdvancedPricesMatch', 'name' => Download::CROSS_SELLING];
 
     private const LIST = [
         self::CONFIGURATION_URL,
@@ -41,7 +43,8 @@ class DownloadMarketplace extends Download
         self::PRODUCT_CONFIGURATION_URL,
         self::PRODUCT_VISIBILITY_URL,
         self::SHOPWARE_ERROR_URL,
-        self::REFERRERS_URL
+        self::REFERRERS_URL,
+        self::CROSS_SELLING_URL
     ];
     private const LIST_PAGINATE = [
         self::VARIATION_IMAGE_QUEUE_URL

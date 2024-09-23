@@ -6,7 +6,9 @@ use RuntimeException;
 use ShopwareCheckTool\Models\Marketplace;
 use ShopwareCheckTool\Removers\PluginRemoveTask;
 use ShopwareCheckTool\Requests\Shopware;
+use ShopwareCheckTool\TaskDeeper\CrossSellingDeepTask;
 use ShopwareCheckTool\TaskDeeper\ImageDeepTask;
+use ShopwareCheckTool\TaskDeeper\ImageDifferentOriginTask;
 use ShopwareCheckTool\TaskDeeper\ShopwareErrorDuplicateProductNumberTask;
 
 class Tasker
@@ -82,6 +84,12 @@ class Tasker
         return $this;
     }
 
+    public function crossSelling(): Tasker
+    {
+        (new CrossSellingDeepTask($this->shopware))->check();
+        return $this;
+    }
+
     public function productVisibility(): Tasker
     {
         (new ProductVisibilityTask($this->shopware))->check();
@@ -97,6 +105,12 @@ class Tasker
     public function shopwareErrorDuplicateProductNumber(): Tasker
     {
         (new ShopwareErrorDuplicateProductNumberTask($this->shopware))->check();
+        return $this;
+    }
+
+    public function shopwareDifferentImageOrigin(): Tasker
+    {
+        (new ImageDifferentOriginTask($this->shopware))->check();
         return $this;
     }
 
